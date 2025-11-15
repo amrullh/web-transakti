@@ -1,0 +1,31 @@
+.card {
+    background-color: #ffffff;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+
+
+
+    border-bottom: 5px solid #4F959D;
+
+    border-radius: 8px 8px 0 0;
+
+}
+
+.title {
+    font-size: 0.875rem;
+
+    color: #6b7280;
+
+    margin: 0 0 0.25rem 0;
+}
+
+
+.value {
+    font-size: 1.5rem;
+
+    font-weight: bold;
+    color: #111111;
+
+    margin: 0;
+}

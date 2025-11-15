@@ -1,4 +1,4 @@
-// components/Sidebar.tsx
+
 'use client';
 
 import Link from 'next/link';
@@ -6,14 +6,13 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
 
-
 const colors = {
   darkBlue: '#205781',
   teal: '#4F959D',
   mintGreen: '#98D2C0',
   lightCream: '#F6F8D5',
+  white: '#FFFFFF',
 };
-
 
 type SidebarProps = {
   role: 'owner' | 'pegawai';
@@ -21,21 +20,22 @@ type SidebarProps = {
 
 
 const ownerLinks = [
-  { name: 'Kelola Outlet', href: '/kelola-outlet' },
-  { name: 'Kelola Produk', href: '/kelola-produk' },
-  { name: 'Kelola Pegawai', href: '/kelola-pegawai' },
-  { name: 'Pembayaran', href: '/pembayaran' },
-  { name: 'Promo', href: '/promo' },
-  { name: 'Riwayat Transaksi', href: '/riwayat-transaksi' },
-  { name: 'Pengaturan Struk', href: '/pengaturan-struk' },
-  { name: 'Laporan Penjualan', href: '/laporan-penjualan' },
+  { name: 'Kelola Outlet', href: '/dashboard/kelola-outlet' },
+  { name: 'Kelola Produk', href: '/dashboard/kelola-produk' },
+  { name: 'Kelola Pegawai', href: '/dashboard/kelola-pegawai' },
+  { name: 'Pembayaran', href: '/dashboard/pembayaran' },
+  { name: 'Promo', href: '/dashboard/promo' },
+  { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
+  { name: 'Pengaturan Struk', href: '/dashboard/pengaturan-struk' },
+  { name: 'Laporan Penjualan', href: '/dashboard/laporan-penjualan' },
 ];
 
 const pegawaiLinks = [
-  { name: 'Transaksi', href: '/transaksi' },
-  { name: 'Pembayaran', href: '/pembayaran' },
-  { name: 'Riwayat Transaksi', href: '/riwayat-transaksi' },
+  { name: 'Transaksi', href: '/dashboard/transaksi' },
+  { name: 'Pembayaran', href: '/dashboard/pembayaran' },
+  { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
 ];
+
 
 export default function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
@@ -45,12 +45,12 @@ export default function Sidebar({ role }: SidebarProps) {
     width: '280px',
     height: '100vh',
     backgroundColor: colors.darkBlue,
-    color: colors.lightCream,
+    color: colors.white,
     padding: '2rem 1.5rem',
     display: 'flex',
     flexDirection: 'column',
     boxSizing: 'border-box',
-    borderRadius: '0 10px 10px 0',
+    borderRadius: '0 30px 30px 0',
     boxShadow: '4px 0 10px rgba(0,0,0,0.1)',
   };
 
@@ -69,7 +69,7 @@ export default function Sidebar({ role }: SidebarProps) {
 
   const linkStyle: React.CSSProperties = {
     textDecoration: 'none',
-    color: colors.lightCream,
+    color: colors.white,
     padding: '0.8rem 1rem',
     borderRadius: '8px',
     transition: 'background-color 0.2s, color 0.2s',
@@ -78,7 +78,6 @@ export default function Sidebar({ role }: SidebarProps) {
     alignItems: 'center',
   };
 
-
   const activeLinkStyle: React.CSSProperties = {
     ...linkStyle,
     backgroundColor: colors.lightCream,
@@ -86,13 +85,12 @@ export default function Sidebar({ role }: SidebarProps) {
     fontWeight: 'bold',
   };
 
-
   const logoutLinkStyle: React.CSSProperties = {
     ...linkStyle,
     backgroundColor: 'transparent',
     border: `1px solid ${colors.teal}`,
     marginTop: 'auto',
-    color: colors.lightCream,
+    color: colors.white,
     textAlign: 'center',
     justifyContent: 'center',
   };
@@ -111,6 +109,7 @@ export default function Sidebar({ role }: SidebarProps) {
 
       <nav style={navStyle}>
         {links.map((link) => {
+
           const isActive = pathname.startsWith(link.href);
           return (
             <Link
@@ -124,7 +123,6 @@ export default function Sidebar({ role }: SidebarProps) {
         })}
       </nav>
 
-      {/* Link Keluar selalu di paling bawah */}
       <Link href="/logout" style={logoutLinkStyle}>
         Keluar
       </Link>

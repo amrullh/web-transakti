@@ -1,10 +1,11 @@
-// app/page.js  (Halaman Home)
+
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  return (
-    <div>
-      <h1>Selamat Datang di Halaman Home</h1>
-      <p style={{ color: '#4F959D' }}>.</p>
-    </div>
-  );
+
+
+  redirect('/dashboard/kelola-outlet');
+
+
+  return null;
 }
