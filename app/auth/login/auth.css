@@ -1,0 +1,193 @@
+/* Styling untuk halaman login/register secara keseluruhan */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f9fc;
+    padding: 20px;
+}
+
+/* Styling untuk card utama (kotak putih) */
+.login-card {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+/* --- Bagian Kiri (Form Login/Register) --- */
+.login-left {
+    padding: 50px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 400px;
+}
+
+.login-logo {
+    margin-bottom: 20px;
+    height: auto; /* Memastikan logo tidak penyet */
+}
+
+.login-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.login-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+/* Styling untuk setiap grup input (label + input/select) */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+/* Styling dasar untuk INPUT dan SELECT */
+.form-group input,
+.dropdown-wrapper select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.dropdown-wrapper select:focus {
+    border-color: #276eba;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+}
+
+/* Wrapper untuk password field dan ikon mata */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Penyesuaian input di dalam password-wrapper agar ada ruang untuk ikon */
+.password-wrapper input {
+    padding-right: 40px; 
+}
+
+/* Styling untuk ikon mata (toggle password visibility) */
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+
+/* Styling untuk link Lupa Password */
+.forgot {
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #276eba;
+    text-decoration: none;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.forgot:hover {
+    color: #0c4a8d;
+}
+
+/* Styling untuk tombol Login/Registrasi */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #216b9b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+.btn-login:hover {
+    background-color: #1a557a;
+}
+
+/* Styling untuk link register/login di bawah tombol */
+.register-link {
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #276eba;
+    text-decoration: none;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* --- Bagian Kanan (Ilustrasi) --- */
+.login-right {
+    flex: 1;
+    /* Warna yang konsisten: #F6F8D5 */
+    background-color: #F6F8D5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+/* --- Dropdown Jenis Bisnis (Mempertahankan Tampilan Default) --- */
+.dropdown-wrapper select {
+    /* Pastikan tidak ada styling kustom yang memaksa panah */
+    appearance: menulist-button;
+    -webkit-appearance: menulist-button;
+    -moz-appearance: menulist-button;
+    padding-right: 15px; 
+}
+
+
+/* Media Query untuk tata letak responsif */
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column; 
+        border-radius: 15px;
+        max-width: 450px;
+    }
+
+    .login-left {
+        padding: 30px 20px;
+        min-width: unset;
+    }
+
+    .login-right {
+        display: none; 
+    }
+}

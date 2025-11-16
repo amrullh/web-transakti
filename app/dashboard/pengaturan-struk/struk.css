@@ -1,0 +1,241 @@
+/* =========================================
+   PAGE CONTAINER
+========================================= */
+.page-container {
+  min-height: 100vh;
+  padding: 40px 60px;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 32px;
+}
+
+/* =========================================
+   PREVIEW BUTTON
+========================================= */
+.preview-container {
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+
+.preview-btn {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #2563eb;
+  background: white;
+  color: #2563eb;
+  font-weight: 600;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.preview-btn:hover {
+  background: #eff6ff;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* =========================================
+   LIST
+========================================= */
+.content-box {
+  max-width: 720px;
+  background: white;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.setting-label {
+  font-size: 17px;
+  font-weight: 500;
+  color: #444;
+}
+
+.edit-btn {
+  padding: 10px;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+  border: none;
+}
+
+.edit-btn:hover {
+  background: #f3f4f6;
+}
+
+/* =========================================
+   TOGGLE
+========================================= */
+.toggle {
+  width: 48px;
+  height: 26px;
+  border-radius: 20px;
+  position: relative;
+  transition: 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.toggle.on {
+  background: #3b82f6;
+}
+
+.toggle.off {
+  background: #cbd5e1;
+}
+
+.toggle-ball {
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  transition: 0.3s;
+}
+
+.toggle.on .toggle-ball {
+  left: 26px;
+}
+
+.toggle.off .toggle-ball {
+  left: 4px;
+}
+
+/* =========================================
+   MODAL OVERLAY
+========================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 50;
+}
+
+/* =========================================
+   MODAL BOX
+========================================= */
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.modal h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Textarea edit header/footer */
+.modal textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 15px;
+  resize: none;
+  outline: none;
+}
+
+.modal textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+/* Save button */
+.modal .save-btn {
+  width: 100%;
+  padding: 14px;
+  background: #2563eb;
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: 0.2s;
+}
+
+.modal .save-btn:hover {
+  background: #1e4fcf;
+}
+
+/* =========================================
+   RECEIPT PREVIEW
+========================================= */
+.receipt-box {
+  text-align: center;
+  font-size: 14px;
+}
+
+.receipt-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.receipt-subtitle {
+  color: #666;
+  font-size: 12px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+.faded {
+  color: #9ca3af;
+}
+
+.receipt-summary .total {
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.receipt-footer {
+  margin-top: 16px;
+}
+
+.receipt-footer .bold {
+  font-weight: bold;
+}
