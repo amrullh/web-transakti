@@ -26,7 +26,11 @@
   color: #3a3a3a;
   text-align: left;
   font-size: 14px;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid #ebe9e9;
+}
+
+.pegawaiTable tbody tr:hover {
+  background-color: #e7e7e7;
 }
 
 .pegawaiTable td {
@@ -39,6 +43,10 @@
 .pegawaiTable tr td:last-child {
   width: 50px;
   text-align: center;
+}
+
+.rowClickable {
+  cursor: pointer;
 }
 
 .badge {
@@ -73,11 +81,6 @@
   border-radius: 20px;
   font-size: 15px;
   cursor: pointer;
-  transition: 0.2s;
-}
-
-.editBtn:hover {
-  background: #19555b;
 }
 
 .addBtn {
@@ -89,11 +92,6 @@
   font-size: 30px;
   border: none;
   cursor: pointer;
-  transition: 0.2s;
-}
-
-.addBtn:hover {
-  background: #163b5a;
 }
 
 .overlay {
@@ -107,7 +105,7 @@
   z-index: 999;
 }
 
-/* Popup */
+/* Popup kecil (WA / SMS) */
 .popup {
   background: white;
   padding: 5px 28px 40px;
@@ -117,17 +115,11 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-/* Popup header */
 .popupHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-}
-
-.popupHeader h3 {
-  font-size: 18px;
-  color: #2d5f87;
 }
 
 .closeBtn {
@@ -137,7 +129,6 @@
   cursor: pointer;
 }
 
-/* Popup body */
 .popupBody {
   display: flex;
   justify-content: center;
@@ -158,16 +149,47 @@
   transition: 0.2s;
 }
 
+.iconImg {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
 .waBtn:hover,
 .smsBtn:hover {
   background: #ddd;
 }
 
-/* Icon image */
-.iconImg {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
+/* Popup DETAIL */
+.detailPopup {
+  background: white;
+  padding: 25px 30px;
+  width: 380px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.detailBody p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.profileImg {
+  width: 110px;
+  height: 110px;
+  display: block;
+  margin: 0 auto 15px auto;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 @keyframes fadeIn {
