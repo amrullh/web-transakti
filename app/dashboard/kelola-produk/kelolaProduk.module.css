@@ -61,6 +61,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
+    text-align: center;
 }
 
 /* --- Tabel Styling --- */
@@ -140,6 +141,7 @@
     font-size: 14px;
     gap: 1rem;
     color: #666;
+    text-decoration: none;
 }
 
 .currentPage {
@@ -179,6 +181,15 @@
     border-bottom: 1px solid #eee;
 }
 
+/* Tambahkan style untuk Judul Modal yang baru */
+.modalTitle {
+    font-size: 20px;
+    color: #1f4d78;
+    font-weight: bold;
+    text-align: center; 
+    flex-grow: 1; /* FIX: Memastikan judul menempati ruang tengah */
+}
+
 .popupHeader h3 {
     font-size: 20px;
     color: #1f4d78;
@@ -193,25 +204,33 @@
     cursor: pointer;
 }
 
-/* FORM LAYOUT */
+/* --- FORM LAYOUT UTAMA (Menggunakan Grid 2 Kolom) --- */
 .produkForm {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 30px; 
+    padding: 0 10px; 
 }
 
+/* Kolom Kiri: Input Form */
 .formSectionLeft {
+    /* Menggunakan flexbox vertikal untuk menumpuk input */
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; 
+    grid-column: 1 / 2;
 }
 
+/* Kolom Kanan: Upload Gambar */
 .formSectionRight {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    grid-column: 2 / 3;
+    position: relative;
 }
 
+/* Input Styles */
 .formInput {
     padding: 12px;
     border: 1px solid #ddd;
@@ -220,6 +239,7 @@
     width: 100%;
 }
 
+/* Upload Area */
 .uploadText {
     font-weight: 600;
     color: #444;
@@ -235,24 +255,31 @@
     justify-content: center;
     color: #777;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .fileInput {
+    /* Membuat input file transparan, tapi tidak menutupi input text di formSectionLeft */
     position: absolute;
     width: 100%;
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    top: 0;
+    left: 0;
 }
 
-.formActions {
-    grid-column: 1 / 3; /* Membentang di 2 kolom */
+/* --- TOMBOL SIMPAN (FOOTER MODAL) --- */
+.formActionsRight {
+    /* FIX: Membentang di 2 kolom penuh dan rata kanan */
+    grid-column: 1 / 3; 
     text-align: right;
     padding-top: 15px;
 }
 
 .saveBtn {
-    background: #2ea56f; /* Hijau konsisten */
+    background: #2ea56f;
     color: white;
     border: none;
     padding: 10px 30px;

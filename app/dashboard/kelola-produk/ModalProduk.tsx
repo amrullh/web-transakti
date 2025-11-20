@@ -1,8 +1,8 @@
 // File: app/dashboard/kelola-produk/ModalProduk.tsx
 
 import React, { useState } from 'react';
-import { IProduk } from 'src/types/produk'; // Harusnya sudah bisa di-import setelah file ini dibuat
-import styles from './kelolaProduk.module.css'; // Import CSS Module
+import { IProduk } from 'src/types/produk'; 
+import styles from './kelolaProduk.module.css'; 
 
 // --- DEFINISI TIPE UNTUK MODAL DASAR ---
 interface IModalProps {
@@ -18,15 +18,14 @@ interface IModalProdukProps {
   dataProdukEdit: IProduk | null; 
 }
 
-// --- Komponen Dasar Modal (Menggunakan CSS Module untuk Overlay dan Popup) ---
+// --- Komponen Dasar Modal ---
 const Modal: React.FC<IModalProps> = ({ buka, tutup, judul, children }) => {
   if (!buka) return null;
   return (
-    // Menggunakan styles.overlay dan styles.popup dari kelolaProduk.module.css
     <div className={styles.overlay} onClick={tutup}>
       <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
         <div className={styles.popupHeader}>
-          <h3>{judul}</h3>
+          <h3 className={styles.modalTitle}>{judul}</h3>
           <button className={styles.closeBtn} onClick={tutup}>×</button>
         </div>
         <div className={styles.popupBody}>
@@ -46,12 +45,14 @@ const ModalProduk: React.FC<IModalProdukProps> = ({ buka, tutup, dataProdukEdit 
   const [tampilPertanyaanBarcode, setTampilPertanyaanBarcode] = useState(!modeEdit);
 
   const [dataForm, setDataForm] = useState({ 
+    // Mengacu langsung ke dataProdukEdit (sumber data) jika ada, jika tidak, pakai nilai default ('')
     namaProduk: dataProdukEdit?.nama || '',
     kodeProduk: dataProdukEdit?.kodeProduk || '',
     hargaModal: dataProdukEdit?.hargaModal || 0,
     hargaJual: dataProdukEdit?.hargaJual || 0,
     stok: dataProdukEdit?.stok || 0,
-    kategori: dataProdukEdit?.kategori || '',
+    // FIX: Mengacu ke dataProdukEdit untuk nilai kategori
+    kategori: dataProdukEdit?.kategori || '', 
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -60,9 +61,8 @@ const ModalProduk: React.FC<IModalProdukProps> = ({ buka, tutup, dataProdukEdit 
 
   const handleSimpan = (e: React.FormEvent) => {
     e.preventDefault();
-    // LOGIKA SIMPAN KE API: console.log('Data yang disimpan:', dataForm);
+    console.log('Data yang disimpan:', dataForm);
     tutup();
-    // Reset tampilan awal hanya jika mode Tambah
     if (!modeEdit) {
         setTampilPertanyaanBarcode(true); 
     }
@@ -91,7 +91,7 @@ const ModalProduk: React.FC<IModalProdukProps> = ({ buka, tutup, dataProdukEdit 
   const renderFormProduk = () => (
     <form onSubmit={handleSimpan} className={styles.produkForm}>
       
-      {/* Kolom Kiri - Data Produk */}
+      {/* Kolom Kiri - Data Produk (SEMUA INPUT DIJAMIN ADA) */}
       <div className={styles.formSectionLeft}>
         <input name="namaProduk" placeholder="Nama Produk" value={dataForm.namaProduk} onChange={handleChange} required className={styles.formInput} />
         
@@ -99,7 +99,6 @@ const ModalProduk: React.FC<IModalProdukProps> = ({ buka, tutup, dataProdukEdit 
           <input name="kodeProduk" placeholder="Kode Produk (Scan Barcode)" value={dataForm.kodeProduk || ''} onChange={handleChange} className={styles.formInput} />
         )}
         
-        {/* Harga Modal & Harga Jual Dibuat 2 kolom kecil di BRD, tapi di sini disederhanakan */}
         <input name="hargaModal" placeholder="Harga Modal" value={dataForm.hargaModal} onChange={handleChange} type="number" required className={styles.formInput} />
         <input name="hargaJual" placeholder="Harga Jual" value={dataForm.hargaJual} onChange={handleChange} type="number" required className={styles.formInput} />
         <input name="stok" placeholder="Stok" value={dataForm.stok} onChange={handleChange} type="number" required className={styles.formInput} />
@@ -116,14 +115,13 @@ const ModalProduk: React.FC<IModalProdukProps> = ({ buka, tutup, dataProdukEdit 
       <div className={styles.formSectionRight}>
         <p className={styles.uploadText}>Unggah Gambar Produk</p>
         <div className={styles.imageUploadArea}>
-            {/* Simulasi area drop file */}
             <p>Klik atau Seret Gambar di sini</p>
-            <input type="file" className={styles.fileInput} />
+            <input type="file" className={styles.fileInput} /> 
         </div>
       </div>
 
-      {/* Tombol Simpan */}
-      <div className={styles.formActions}>
+      {/* Tombol Simpan (FOOTER) */}
+      <div className={styles.formActionsRight}>
         <button type="submit" className={styles.saveBtn}>
           {modeEdit ? 'Simpan Perubahan' : 'Simpan Produk'}
         </button>
