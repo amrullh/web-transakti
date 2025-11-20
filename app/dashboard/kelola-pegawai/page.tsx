@@ -11,19 +11,48 @@ interface Employee {
   telepon: string;
   password: string;
   status: "Aktif" | "Nonaktif";
+  alamat?: string;
+  tanggalDiterima?: string;
 }
 
 export default function KelolaPegawai() {
   const router = useRouter();
 
   const [employees] = useState<Employee[]>([
-    { id: 1, nama: "Susanti atiet bultang", telepon: "08000849895", password: "Kymsaubf", status: "Aktif" },
-    { id: 2, nama: "Cici and yoyo", telepon: "08944732984", password: "djkabfuik", status: "Aktif" },
-    { id: 3, nama: "Debora tiktokers", telepon: "08372738495", password: "FJAUlBkhf", status: "Aktif" },
+    { 
+      id: 1, 
+      nama: "Susanti atiet bultang", 
+      telepon: "08000849895", 
+      password: "Kymsaubf", 
+      status: "Aktif",
+      alamat: "Jl. Bultang No. 21",
+      tanggalDiterima: "2022-10-12"
+    },
+    { 
+      id: 2, 
+      nama: "Cici and yoyo", 
+      telepon: "08944732984", 
+      password: "djkabfuik", 
+      status: "Aktif",
+      alamat: "Jl. Mawar No. 14",
+      tanggalDiterima: "2023-01-05"
+    },
+    { 
+      id: 3, 
+      nama: "Debora tiktokers", 
+      telepon: "08372738495", 
+      password: "FJAUlBkhf", 
+      status: "Aktif",
+      alamat: "Jl. TikTok Raya Blok A",
+      tanggalDiterima: "2023-07-19"
+    },
   ]);
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+
+  const [detailPopup, setDetailPopup] = useState(false);
+  const [detailEmployee, setDetailEmployee] = useState<Employee | null>(null);
 
   const openPopup = (emp: Employee) => {
     setSelectedEmployee(emp);
@@ -35,7 +64,16 @@ export default function KelolaPegawai() {
     setSelectedEmployee(null);
   };
 
-  // === ✔ Kirim WhatsApp ===
+  const openDetailPopup = (emp: Employee) => {
+    setDetailEmployee(emp);
+    setDetailPopup(true);
+  };
+
+  const closeDetailPopup = () => {
+    setDetailPopup(false);
+    setDetailEmployee(null);
+  };
+
   const sendWhatsApp = () => {
     if (!selectedEmployee) return;
 
@@ -56,7 +94,6 @@ Terima kasih.
     window.open(url, "_blank");
   };
 
-  // === ✔ Kirim SMS ===
   const sendSMS = () => {
     if (!selectedEmployee) return;
 
@@ -78,7 +115,6 @@ Terima kasih.
 
   return (
     <div className={styles.pegawaiContainer}>
-      
       <h1 className={styles.title}>Kelola Pegawai</h1>
 
       <div className={styles.tableWrapper}>
@@ -95,17 +131,22 @@ Terima kasih.
 
           <tbody>
             {employees.map((emp) => (
-              <tr key={emp.id}>
+              <tr 
+                key={emp.id} 
+                className={styles.rowClickable} 
+                onClick={() => openDetailPopup(emp)}
+              >
                 <td>{emp.nama}</td>
                 <td>{emp.telepon}</td>
                 <td>{emp.password}</td>
-                <td>
-                  <span className={styles.badge}>{emp.status}</span>
-                </td>
+                <td><span className={styles.badge}>{emp.status}</span></td>
                 <td>
                   <FiSend 
                     className={styles.sendIcon}
-                    onClick={() => openPopup(emp)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openPopup(emp);
+                    }}
                   />
                 </td>
               </tr>
@@ -114,7 +155,7 @@ Terima kasih.
         </table>
       </div>
 
-      {/* Tombol kanan */}
+      {/* Buttons kanan */}
       <div className={styles.actions}>
         <button 
           className={styles.editBtn}
@@ -131,28 +172,52 @@ Terima kasih.
         </button>
       </div>
 
-      {/* Popup */}
+      {/* Popup WA/SMS */}
       {showPopup && (
         <div className={styles.overlay} onClick={closePopup}>
           <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
-            
             <div className={styles.popupHeader}>
               <h3>Kirim Informasi ke Pegawai</h3>
               <button className={styles.closeBtn} onClick={closePopup}>×</button>
             </div>
 
             <div className={styles.popupBody}>
-              
-              {/* Tombol WhatsApp */}
               <button className={styles.waBtn} onClick={sendWhatsApp}>
                 <img src="/icons/whatsapp.png" className={styles.iconImg} /> Kirim via WhatsApp
               </button>
 
-              {/* Tombol SMS */}
               <button className={styles.smsBtn} onClick={sendSMS}>
                 <img src="/icons/sms.png" className={styles.iconImg} /> Kirim via SMS
               </button>
+            </div>
+          </div>
+        </div>
+      )}
 
+      {/* POPUP DETAIL PEGAWAI */}
+      {detailPopup && detailEmployee && (
+        <div className={styles.overlay} onClick={closeDetailPopup}>
+          <div className={styles.detailPopup} onClick={(e) => e.stopPropagation()}>
+            
+            <div className={styles.detailHeader}>
+              <h3>Detail Pegawai</h3>
+              <button className={styles.closeBtn} onClick={closeDetailPopup}>×</button>
+            </div>
+
+            <div className={styles.detailBody}>
+              <img 
+                src="/foto-default.png" 
+                alt="Foto Pegawai"
+                className={styles.profileImg}
+              />
+
+              <p><strong>ID:</strong> {detailEmployee.id}</p>
+              <p><strong>Nama:</strong> {detailEmployee.nama}</p>
+              <p><strong>No Telepon:</strong> {detailEmployee.telepon}</p>
+              <p><strong>Password:</strong> {detailEmployee.password}</p>
+              <p><strong>Alamat:</strong> {detailEmployee.alamat}</p>
+              <p><strong>Tanggal Diterima:</strong> {detailEmployee.tanggalDiterima}</p>
+              <p><strong>Status Pegawai:</strong> {detailEmployee.status}</p>
             </div>
 
           </div>

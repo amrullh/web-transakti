@@ -25,7 +25,7 @@
     ],
     // --- TAMBAHKAN DUA BARIS DI BAWAH INI ---
     
-    "baseUrl": ".",
+    "baseUrl": "",
     "paths": {
       "@/*": [
         "./*"
