@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import styles from "./KelolaProduk.module.css";
 import FilterDropdown from "./components/FilterDropdown";
-import Pagination from "./components/Pagination";
+import Pagination from "../../../components/Pagination";
 import ModalTambahProduk from "./components/ModalTambahProduk";
 import ModalEditProduk from "./components/ModalEditProduk";
 import ModalHapusProduk from "./components/ModalHapusProduk";
