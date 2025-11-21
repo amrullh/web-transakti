@@ -15,6 +15,19 @@ interface Employee {
   foto?: string;
 }
 
+// ========================
+// GENERATE PASSWORD OTOMATIS
+// ========================
+const generatePassword = (length = 8) => {
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let pass = "";
+  for (let i = 0; i < length; i++) {
+    pass += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return pass;
+};
+
 export default function KelolaPegawai() {
   const [employees, setEmployees] = useState<Employee[]>([
     {
@@ -50,7 +63,8 @@ export default function KelolaPegawai() {
   ]);
 
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [selectedEmployee, setSelectedEmployee] =
+    useState<Employee | null>(null);
 
   const [detailPopup, setDetailPopup] = useState(false);
   const [detailEmployee, setDetailEmployee] = useState<Employee | null>(null);
@@ -62,11 +76,14 @@ export default function KelolaPegawai() {
   const [editData, setEditData] = useState<Employee | null>(null);
   const [search, setSearch] = useState("");
 
+  // ========================
+  // ADD DATA DENGAN PASSWORD OTOMATIS
+  // ========================
   const [addData, setAddData] = useState<Employee>({
     id: 0,
     nama: "",
     telepon: "",
-    password: "",
+    password: generatePassword(), // otomatis
     status: "Aktif",
     alamat: "",
     tanggalDiterima: "",
@@ -159,15 +176,23 @@ Terima kasih.
     )}`;
   };
 
+  // ========================
+  // SAVE ADD -> PASSWORD TETAP OTOMATIS KALAU TIDAK DIUBAH
+  // ========================
   const saveAdd = () => {
-    const newEmployee = { ...addData, id: employees.length + 1 };
+    const newEmployee = {
+      ...addData,
+      id: employees.length + 1,
+    };
+
     setEmployees([...employees, newEmployee]);
 
+    // reset & generate password baru otomatis
     setAddData({
       id: 0,
       nama: "",
       telepon: "",
-      password: "",
+      password: generatePassword(),
       status: "Aktif",
       alamat: "",
       tanggalDiterima: "",
@@ -258,13 +283,14 @@ Terima kasih.
         </table>
       </div>
 
+      {/* ====================== ADD BUTTON ====================== */}
       <div className={styles.actions}>
         <button className={styles.addBtn} onClick={() => setAddPopup(true)}>
           +
         </button>
       </div>
 
-      {/* ================= POPUP TAMBAH ================= */}
+      {/* ====================== POPUP TAMBAH ====================== */}
       {addPopup && (
         <div className={styles.bigOverlay} onClick={() => setAddPopup(false)}>
           <div
@@ -298,7 +324,10 @@ Terima kasih.
                     if (!file) return;
                     const reader = new FileReader();
                     reader.onload = () =>
-                      setAddData({ ...addData, foto: reader.result as string });
+                      setAddData({
+                        ...addData,
+                        foto: reader.result as string,
+                      });
                     reader.readAsDataURL(file);
                   }}
                 />
@@ -324,7 +353,7 @@ Terima kasih.
                 }
               />
 
-              <label>Password</label>
+              <label>Password (otomatis, boleh diganti)</label>
               <input
                 type="text"
                 value={addData.password}
@@ -347,7 +376,10 @@ Terima kasih.
                 type="date"
                 value={addData.tanggalDiterima}
                 onChange={(e) =>
-                  setAddData({ ...addData, tanggalDiterima: e.target.value })
+                  setAddData({
+                    ...addData,
+                    tanggalDiterima: e.target.value,
+                  })
                 }
               />
             </div>
@@ -359,7 +391,7 @@ Terima kasih.
         </div>
       )}
 
-      {/* ================= POPUP WA / SMS ================= */}
+      {/* ====================== POPUP WA / SMS ====================== */}
       {showPopup && (
         <div className={styles.overlay} onClick={closePopup}>
           <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
@@ -385,7 +417,7 @@ Terima kasih.
         </div>
       )}
 
-      {/* ================= POPUP DETAIL ================= */}
+      {/* ====================== POPUP DETAIL ====================== */}
       {detailPopup && detailEmployee && (
         <div className={styles.overlay} onClick={closeDetailPopup}>
           <div
@@ -432,7 +464,7 @@ Terima kasih.
         </div>
       )}
 
-      {/* ================= POPUP EDIT ================= */}
+      {/* ====================== POPUP EDIT ====================== */}
       {editPopup && editData && (
         <div className={styles.bigOverlay} onClick={closeEditPopup}>
           <div
@@ -545,7 +577,7 @@ Terima kasih.
         </div>
       )}
 
-      {/* ================= POPUP DELETE (BARU) ================= */}
+      {/* ====================== POPUP DELETE ====================== */}
       {deletePopup && (
         <div className={styles.smallOverlay} onClick={closeDeletePopup}>
           <div
