@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import styles from "./KelolaProduk.module.css";
+import styles from "./kelolaProduk.module.css";
 import FilterDropdown from "./components/FilterDropdown";
 import Pagination from "../../../components/Pagination";
 import ModalTambahProduk from "./components/ModalTambahProduk";
