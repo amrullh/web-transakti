@@ -37,7 +37,7 @@
   gap: 8px;
   cursor: pointer;
   font-size: 16px;
-  transition: 0.2s;
+  transition: background 0.2s ease;
 }
 
 .preview-btn:hover {
@@ -76,8 +76,8 @@
   border-radius: 10px;
   background: transparent;
   cursor: pointer;
-  transition: 0.2s;
   border: none;
+  transition: background 0.2s ease;
 }
 
 .edit-btn:hover {
@@ -91,10 +91,10 @@
   width: 48px;
   height: 26px;
   border-radius: 20px;
-  position: relative;
-  transition: 0.3s;
-  cursor: pointer;
   border: none;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .toggle.on {
@@ -112,7 +112,7 @@
   border-radius: 50%;
   position: absolute;
   top: 4px;
-  transition: 0.3s;
+  transition: left 0.3s ease;
 }
 
 .toggle.on .toggle-ball {
@@ -168,11 +168,11 @@
 /* Textarea edit header/footer */
 .modal textarea {
   width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
   padding: 10px;
   font-size: 15px;
   resize: none;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   outline: none;
 }
 
@@ -187,12 +187,12 @@
   padding: 14px;
   background: #2563eb;
   color: white;
-  border-radius: 12px;
   font-weight: 600;
   border: none;
+  border-radius: 12px;
   cursor: pointer;
+  transition: background 0.2s ease;
   margin-top: 16px;
-  transition: 0.2s;
 }
 
 .modal .save-btn:hover {
@@ -213,8 +213,9 @@
 }
 
 .receipt-subtitle {
-  color: #666;
+  margin-top: 4px;
   font-size: 12px;
+  color: #666;
 }
 
 .receipt-row {
@@ -228,8 +229,8 @@
 }
 
 .receipt-summary .total {
-  font-weight: bold;
   margin-top: 4px;
+  font-weight: bold;
 }
 
 .receipt-footer {

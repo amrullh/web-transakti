@@ -19,9 +19,10 @@ const SettingItem: React.FC<SettingItemProps> = ({ label, onEdit }) => (
 );
 
 export default function PengaturanStrukKonten() {
-  // STATE HEADER & FOOTER STRUK
-  const [headerText, setHeaderText] = useState("CANTIK MADURA");
+  // STATE HEADER, FOOTER, NAMA TOKO
+  const [headerText, setHeaderText] = useState("Header Struk");
   const [footerText, setFooterText] = useState("Terima Kasih");
+  const [outletName, setOutletName] = useState("Nama Toko");
 
   // MODAL EDIT
   const [editType, setEditType] = useState<"header" | "footer" | null>(null);
@@ -101,6 +102,7 @@ export default function PengaturanStrukKonten() {
           close={() => setShowPreview(false)}
           header={headerText}
           footer={footerText}
+          outletName={outletName}   
         />
       )}
     </div>
@@ -111,10 +113,12 @@ function ModalPreview({
   close,
   header,
   footer,
+  outletName,
 }: {
   close: () => void;
   header: string;
   footer: string;
+  outletName: string;   // <- DITAMBAHKAN
 }) {
   return (
     <div className="overlay">
@@ -124,8 +128,8 @@ function ModalPreview({
         </button>
 
         <div className="receipt-box">
-          <h2 className="receipt-title">{header}</h2>
-          <p className="receipt-subtitle">Deskripsi Toko</p>
+          <h2 className="receipt-title">{outletName}</h2>
+          <p className="receipt-subtitle">{header}</p>
 
           <div className="receipt-row">
             <span>Tanggal</span>
