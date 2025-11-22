@@ -1,23 +1,15 @@
-
-
 import React from 'react';
-import Sidebar from '../../components/Sidebar';
-
+import Sidebar from 'components/Sidebar';
 const colors = {
   darkBlue: '#205781',
   white: '#FFFFFF',
 };
-
-
 
 export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userRole = 'owner';
-
-
   return (
     <div
       style={{
@@ -27,6 +19,7 @@ export default function DashboardLayout({
         fontFamily: 'Roboto, sans-serif',
       }}
     >
+
       <div style={{
         position: 'fixed',
         top: 0,
@@ -34,10 +27,9 @@ export default function DashboardLayout({
         height: '100vh',
         zIndex: 10
       }}>
-        <Sidebar role={userRole} />
+        <Sidebar /> {/* Sidebar dipanggil di sini */}
       </div>
 
-      {/* Area Konten Utama */}
       <main
         style={{
           flex: 1,
@@ -52,7 +44,6 @@ export default function DashboardLayout({
       >
         {children}
       </main>
-
     </div>
   );
 }

@@ -1,10 +1,13 @@
-
+// components/Sidebar.tsx
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 const colors = {
   darkBlue: '#205781',
@@ -14,33 +17,47 @@ const colors = {
   white: '#FFFFFF',
 };
 
-type SidebarProps = {
-  role: 'owner' | 'pegawai';
-};
-
-
 const ownerLinks = [
   { name: 'Kelola Outlet', href: '/dashboard/kelola-outlet' },
   { name: 'Kelola Produk', href: '/dashboard/kelola-produk' },
   { name: 'Kelola Pegawai', href: '/dashboard/kelola-pegawai' },
   { name: 'Pembayaran', href: '/dashboard/pembayaran' },
   { name: 'Promo', href: '/dashboard/promo' },
-  { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
+  { name: 'Riwayat Transaksi', href: '/dashboard-pegawai/riwayat-transaksi' },
   { name: 'Pengaturan Struk', href: '/dashboard/pengaturan-struk' },
   { name: 'Laporan Penjualan', href: '/dashboard/laporan-penjualan' },
 ];
 
 const pegawaiLinks = [
   { name: 'Transaksi', href: '/dashboard-pegawai/transaksi' },
-  { name: 'Pembayaran', href: '/dashboard-pegawai/pembayaran' },
-  { name: 'Riwayat Transaksi', href: '/dashboard-pegawai/riwayat-transaksi' },
+  { name: 'Pembayaran', href: '/dashboard/pembayaran' },
+  { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
 ];
 
-
-export default function Sidebar({ role }: SidebarProps) {
+export default function Sidebar() {
   const pathname = usePathname();
-  const links = role === 'owner' ? ownerLinks : pegawaiLinks;
+  const router = useRouter();
 
+
+  const { role, loading } = useAuth();
+
+  let links: { name: string; href: string }[] = [];
+
+  if (!loading) {
+    if (role === 'owner') {
+      links = ownerLinks;
+    } else if (role === 'pegawai') {
+      links = pegawaiLinks;
+    }
+  }
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/auth/login');
+    } catch (error) {
+      console.error("Gagal logout:", error);
+    }
+  };
   const sidebarStyle: React.CSSProperties = {
     width: '280px',
     height: '100vh',
@@ -76,6 +93,7 @@ export default function Sidebar({ role }: SidebarProps) {
     fontSize: '0.95rem',
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
   };
 
   const activeLinkStyle: React.CSSProperties = {
@@ -85,7 +103,7 @@ export default function Sidebar({ role }: SidebarProps) {
     fontWeight: 'bold',
   };
 
-  const logoutLinkStyle: React.CSSProperties = {
+  const logoutButtonStyle: React.CSSProperties = {
     ...linkStyle,
     backgroundColor: 'transparent',
     border: `1px solid ${colors.teal}`,
@@ -93,6 +111,7 @@ export default function Sidebar({ role }: SidebarProps) {
     color: colors.white,
     textAlign: 'center',
     justifyContent: 'center',
+    fontFamily: 'inherit',
   };
 
   return (
@@ -109,7 +128,6 @@ export default function Sidebar({ role }: SidebarProps) {
 
       <nav style={navStyle}>
         {links.map((link) => {
-
           const isActive = pathname.startsWith(link.href);
           return (
             <Link
@@ -123,9 +141,13 @@ export default function Sidebar({ role }: SidebarProps) {
         })}
       </nav>
 
-      <Link href="/logout" style={logoutLinkStyle}>
+      {/* Tombol Keluar Fungsional */}
+      <button
+        onClick={handleLogout}
+        style={logoutButtonStyle}
+      >
         Keluar
-      </Link>
+      </button>
     </div>
   );
 }

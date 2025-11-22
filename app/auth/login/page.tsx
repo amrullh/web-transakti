@@ -1,65 +1,88 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
-import "./auth.css";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import "./auth.css";
+import { auth, db } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // dummy user
-  const dummyUser = {
-    phone: "08123456789",
-    password: "admin123",
-  };
-
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError("");
 
-    // 1. Validate empty fields
     if (!phone || !password) {
-      setError("Semua field wajib diisi");
+      setError("Nomor telepon dan password wajib diisi");
       return;
     }
 
-    // 2. Validate incorrect credentials
-    if (phone !== dummyUser.phone || password !== dummyUser.password) {
-      setError("Nomor telepon atau password salah");
-      return;
+    setLoading(true);
+
+    const emailFormat = `${phone}@transakti.com`;
+
+    try {
+
+      const userCredential = await signInWithEmailAndPassword(auth, emailFormat, password);
+      const user = userCredential.user;
+
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        const userRole = userData.role;
+
+        console.log("Login Sukses sebagai:", userRole);
+
+        if (userRole === 'owner') {
+          router.push("/dashboard/kelola-outlet");
+        } else {
+
+          router.push("/dashboard/pembayaran");
+        }
+      } else {
+        setError("Data user tidak ditemukan di database.");
+      }
+
+    } catch (err: any) {
+      console.error("Login Error:", err);
+
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        setError("Nomor HP atau Password salah.");
+      } else {
+        setError("Gagal login: " + err.message);
+      }
+    } finally {
+      setLoading(false);
     }
-
-    // 3. Save login status
-    localStorage.setItem("isLoggedIn", "true");
-
-    // 4. Redirect to dashboard
-    router.push("/dashboard/kelola-outlet"); 
   };
 
   return (
     <div className="login-wrapper">
       <div className="login-card">
 
-        {/* LEFT */}
+        {/* KIRI - Form Login */}
         <div className="login-left">
-
-          <Image 
+          <Image
             src="/images/logo_di_auth.png"
             alt="logo"
             width={100}
             height={45}
             className="login-logo"
           />
-
           <h1 className="login-title">Login</h1>
           <p className="login-subtitle">Silahkan masuk untuk melanjutkan</p>
 
           {error && (
-            <p style={{ color: "red", marginBottom: "16px", fontSize: "14px" }}>
+            <p style={{ color: "red", marginBottom: "16px", fontSize: "14px", textAlign: "center" }}>
               {error}
             </p>
           )}
@@ -67,7 +90,7 @@ export default function LoginPage() {
           <div className="form-group">
             <label>No. Telepon*</label>
             <input
-              type="text"
+              type="tel"
               placeholder="Masukkan nomor telepon"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -84,11 +107,10 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <a className="forgot">Lupa password?</a>
           </div>
 
-          <button className="btn-login" onClick={handleLogin}>
-            Login
+          <button className="btn-login" onClick={handleLogin} disabled={loading}>
+            {loading ? "Memuat..." : "Login"}
           </button>
 
           <a href="/auth/register" className="register-link">
@@ -96,7 +118,7 @@ export default function LoginPage() {
           </a>
         </div>
 
-        {/* RIGHT */}
+        {/* KANAN - Ilustrasi */}
         <div className="login-right">
           <Image
             src="/images/ilus_auth.png"

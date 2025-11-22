@@ -1,7 +1,8 @@
-
+// app/layout.tsx
 import React from 'react';
 import './globals.css';
 import type { Metadata } from 'next';
+import { AuthProvider } from '@/context/AuthContext'; 
 
 export const metadata: Metadata = {
     title: 'Transakti POS',
@@ -22,7 +23,9 @@ export default function RootLayout({
                 backgroundColor: '#FFFFFF',
                 minHeight: '100vh'
             }}>
-                {children}
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
             </body>
         </html>
     );
