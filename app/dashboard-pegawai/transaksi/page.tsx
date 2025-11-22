@@ -143,11 +143,11 @@ export default function TransaksiPage() {
     }
 
     if (paymentMethod === "Bayar Tunai") {
-      router.push("/pembayaran/tunai");
+      router.push("/dashboard-pegawai/pembayaran/tunai");
     } else if (paymentMethod === "Bayar Qris") {
-      router.push("/pembayaran/qris");
+      router.push("/dashboard-pegawai/pembayaran/qris");
     } else if (paymentMethod === "Transfer") {
-      router.push("/pembayaran/transfer");
+      router.push("/dashboard-pegawai/pembayaran/transfer");
     }
   };
 
