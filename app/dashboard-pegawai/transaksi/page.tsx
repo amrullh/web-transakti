@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import styles from './transaksi.module.css';
 import { FiTrash2 } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 type Product = {
   id: number;
@@ -27,13 +28,15 @@ const products: Product[] = [
 ];
 
 export default function TransaksiPage() {
+
+  const router = useRouter();
+
   const [stockProducts, setStockProducts] = useState<Product[]>(products);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [customerName, setCustomerName] = useState('');
   const [search, setSearch] = useState('');
   const [kategori, setKategori] = useState("Semua");
   const [paymentMethod, setPaymentMethod] = useState("Bayar Tunai");
-  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const filteredProducts = stockProducts
@@ -117,7 +120,6 @@ export default function TransaksiPage() {
   const tax = subtotal * 0.1;
   const total = subtotal + tax;
 
-  // 🚀 LOGIKA BARU — PENCARIAN + SCAN BARCODE (ID)
   const handleSearchInput = (value: string) => {
     setSearch(value);
 
@@ -128,6 +130,24 @@ export default function TransaksiPage() {
     if (scanned) {
       addToCart(scanned);
       setTimeout(() => setSearch(""), 300);
+    }
+  };
+
+  // ==============================
+  //  HANDLE BUTTON PEMBAYARAN
+  // ==============================
+  const handleBayar = () => {
+    if (cart.length === 0) {
+      alert("Keranjang kosong!");
+      return;
+    }
+
+    if (paymentMethod === "Bayar Tunai") {
+      router.push("/dashboard-pegawai/pembayaran/tunai");
+    } else if (paymentMethod === "Bayar Qris") {
+      router.push("/dashboard-pegawai/pembayaran/qris");
+    } else if (paymentMethod === "Transfer") {
+      router.push("/dashboard-pegawai/pembayaran/transfer");
     }
   };
 
@@ -210,16 +230,23 @@ export default function TransaksiPage() {
           ))}
         </div>
 
-        <div className={styles.priceInfo}>
-          <p>Subtotal: Rp {subtotal.toLocaleString()}</p>
-          <p>Pajak (10%): Rp {tax.toLocaleString()}</p>
-          <h3 className={styles.totalHarga}>Total: Rp {total.toLocaleString()}</h3>
+        <div className={styles.infoTransaksi}>
+          <div className={styles.priceInfo}>
+            <p>Subtotal: Rp {subtotal.toLocaleString()}</p>
+            <p>Pajak (10%): Rp {tax.toLocaleString()}</p>
+            <h3 className={styles.totalHarga}>Total: Rp {total.toLocaleString()}</h3>
+          </div>
+
+          <FiTrash2
+            className={styles.trashBtn}
+            onClick={() => setShowDeletePopup(true)}
+          />
         </div>
 
-        <FiTrash2
-          className={styles.trashBtn}
-          onClick={() => setShowDeletePopup(true)}
-        />
+        {/* Metode Pembayaran */}
+        <div className={styles.choosePay}>
+          <p>Pilih metode pembayaran:</p>
+        </div>
 
         <select
           className={styles.selectPayment}
@@ -230,6 +257,14 @@ export default function TransaksiPage() {
           <option>Bayar Qris</option>
           <option>Transfer</option>
         </select>
+
+        {/* BUTTON BAYAR */}
+        <button
+          className={styles.btnPayment}
+          onClick={handleBayar}
+        >
+          {paymentMethod}
+        </button>
 
         <input
           type="text"
@@ -243,7 +278,7 @@ export default function TransaksiPage() {
       {showDeletePopup && (
         <div className={styles.popupOverlay}>
           <div className={styles.popupBox}>
-            <h3 className={styles.popupTitle}>Hapus semua transaksi?</h3>
+            <h3 className={styles.popupTitle}>Hapus transaksi ini?</h3>
             <div className={styles.popupActions}>
               <button
                 className={styles.cancelBtn}
@@ -264,6 +299,7 @@ export default function TransaksiPage() {
           </div>
         </div>
       )}
+
     </div>
   );
 }

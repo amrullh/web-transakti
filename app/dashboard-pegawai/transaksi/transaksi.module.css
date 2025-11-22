@@ -19,10 +19,8 @@
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #205781;
   margin-bottom: 1.5rem;
+  margin-top: 45px;
 }
 
 .searchRow {
@@ -112,9 +110,8 @@
 
 /* Daftar belanja scrollable */
 .cartWrapper {
-  flex: 1;
+  height:500px;
   overflow-y: auto;
-  margin-bottom: 20px;
 }
 
 .emptyText {
@@ -170,9 +167,23 @@
 }
 
 /* HARGA */
-.priceInfo {
+
+.infoTransaksi{
+  display: flex;
+  justify-content: space-between;
   border-top: 2px solid #eaeaea;
-  padding-top: 15px;
+}
+
+.trashBtn {
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color:#7d0a0a;
+  margin-top:20px;
+}
+
+.trashBtn:hover {
+  color: #4b0101;
 }
 
 .totalHarga {
@@ -184,35 +195,49 @@
 
 /* === PEMBAYARAN === */
 
-.selectPayment {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
+.choosePay {
   font-size: 13px;
-  font-weight:lighter;
-  margin-top: 15px;
+  font-weight: 600;
+  margin-bottom: -5px;
+  color:#000000;
+}
+
+.selectPayment {
+  width: 160px;              
+  padding: 8px 10px;         
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 13px;
   cursor: pointer;
-  transition: 0.2s;
+  background: #ffffff;
+  transition: 0.2s ease;
+}
+
+.selectPayment:hover {
+  border-color: #316c91;
 }
 
 .customerInput {
-  margin-top: 15px;
+  margin-top: 18px;
   width: 92%;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-.trashBtn {
-  font-size: 22px;
+.btnPayment {
+  background: #316c91;        
+  border: none;               
+  border-radius: 10px;
+  margin-top: 13px;
+  padding: 12px 5px;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.2s ease;
-  margin: 0 5px;
-  color:#7d0a0a;
 }
 
-.trashBtn:hover {
-  color: #4b0101;
+.btnPayment:hover {
+  background: #205781;        /* versi lebih gelap untuk hover */
 }
 
 /* POPUP KONFIRMASI HAPUS */
@@ -277,4 +302,6 @@
 }
 
 .deleteBtn:hover { background: #b81818; }
+
+
 
