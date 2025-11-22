@@ -1,0 +1,280 @@
+/* CONTAINER UTAMA */
+.container {
+  display: flex;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.left {
+  width: 66.5%;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 20;
+  padding: 10px 0;
+  background: #fff;
+  width: 100%;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #205781;
+  margin-bottom: 1.5rem;
+}
+
+.searchRow {
+  display: flex;
+  gap: 10px;
+}
+
+.searchInput {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 450px;
+}
+
+.filterSelect {
+  width: 130px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 130px;
+  padding: 0 5px 5px;
+}
+
+.productCard {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 10px 10px 1px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 1px solid #eaeaea;
+}
+
+.productCard:hover {
+  transform: scale(1.03);
+}
+
+.productImg {
+  border-radius: 10px;
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.productName {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: -10px;
+}
+
+.productPrice {
+  font-size: 0.9rem;
+}
+
+.productStock {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* RIGHT SIDE */
+.right {
+  position: fixed; 
+  top: 0;
+  right: 0;
+  width: 25%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid #eaeaea;
+  padding: 20px; 
+  box-sizing: border-box;
+  z-index: 90;
+}
+
+/* Judul daftar belanja */
+.belanjaTitle {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Daftar belanja scrollable */
+.cartWrapper {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.emptyText {
+  opacity: 0.8;
+  text-align: center;
+}
+
+.cartItem {
+  padding: 0 12px 6px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ececec;
+}
+
+.cartTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartName {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.cartBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.qtyInput {
+  width: 50px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+}
+
+.cartPrice {
+  font-weight: bold;
+  color: #000000;
+  font-size: 13px;
+}
+
+/* HARGA */
+.priceInfo {
+  border-top: 2px solid #eaeaea;
+  padding-top: 15px;
+}
+
+.totalHarga {
+  font-size: 1.4rem;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #205781;
+}
+
+/* === PEMBAYARAN === */
+
+.selectPayment {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight:lighter;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.customerInput {
+  margin-top: 15px;
+  width: 92%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.trashBtn {
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin: 0 5px;
+  color:#7d0a0a;
+}
+
+.trashBtn:hover {
+  color: #4b0101;
+}
+
+/* POPUP KONFIRMASI HAPUS */
+.popupOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popupBox {
+  background: white;
+  padding: 18px 22px 35px;
+  width: 360px;
+  border-radius: 12px;
+  text-align: center;
+  animation: pop .2s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.popupTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.popupActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancelBtn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  background: #eee;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.cancelBtn:hover { background: #dcdcdc; }
+
+.deleteBtn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #d42626;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.deleteBtn:hover { background: #b81818; }
+

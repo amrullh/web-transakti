@@ -31,9 +31,9 @@ const ownerLinks = [
 ];
 
 const pegawaiLinks = [
-  { name: 'Transaksi', href: '/dashboard/transaksi' },
-  { name: 'Pembayaran', href: '/dashboard/pembayaran' },
-  { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
+  { name: 'Transaksi', href: '/dashboard-pegawai/transaksi' },
+  { name: 'Pembayaran', href: '/dashboard-pegawai/pembayaran' },
+  { name: 'Riwayat Transaksi', href: '/dashboard-pegawai/riwayat-transaksi' },
 ];
 
 
