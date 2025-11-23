@@ -46,7 +46,7 @@ export default function LoginPage() {
           router.push("/dashboard/kelola-outlet");
         } else {
 
-          router.push("/dashboard/pembayaran");
+          router.push("/dashboard-pegawai/transaksi");
         }
       } else {
         setError("Data user tidak ditemukan di database.");

@@ -23,14 +23,14 @@ const ownerLinks = [
   { name: 'Kelola Pegawai', href: '/dashboard/kelola-pegawai' },
   { name: 'Pembayaran', href: '/dashboard/pembayaran' },
   { name: 'Promo', href: '/dashboard/promo' },
-  { name: 'Riwayat Transaksi', href: '/dashboard-pegawai/riwayat-transaksi' },
+  { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
   { name: 'Pengaturan Struk', href: '/dashboard/pengaturan-struk' },
   { name: 'Laporan Penjualan', href: '/dashboard/laporan-penjualan' },
 ];
 
 const pegawaiLinks = [
   { name: 'Transaksi', href: '/dashboard-pegawai/transaksi' },
-  { name: 'Pembayaran', href: '/dashboard/pembayaran' },
+  { name: 'Pembayaran', href: '/dashboard-pegawai/pembayaran' },
   { name: 'Riwayat Transaksi', href: '/dashboard/riwayat-transaksi' },
 ];
 
