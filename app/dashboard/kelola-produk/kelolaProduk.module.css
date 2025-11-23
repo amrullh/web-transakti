@@ -1,15 +1,17 @@
 .container {
-  padding: 24px;
-  font-family: Inter, sans-serif;
-  background: #f8fafc;
+  font-family: Arial, Helvetica, sans-serif;
   min-height: calc(100vh - 200px);
 }
 
 .title {
-  font-size: 26px;
-  font-weight: 700;
-  color: #0f4b62;
-  margin-bottom: 20px;
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
 }
 
 .topRow {
@@ -85,7 +87,6 @@
   background: #e6f9ee;
   color: #0f7a49;
   border-radius: 8px;
-  font-weight: 600;
 }
 
 .statusNon {
@@ -93,7 +94,6 @@
   background: #fff0f0;
   color: #b32626;
   border-radius: 8px;
-  font-weight: 600;
 }
 
 .btnEdit {

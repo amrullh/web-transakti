@@ -19,7 +19,7 @@ export interface ProductType {
   stok: number;
   gambar?: string | null;
   kategori: "Makanan" | "Minuman";
-  status: "Aktif" | "Tidak Aktif";
+  status: "Aktif" | "Nonaktif";
 }
 
 export default function KelolaProdukPage() {
@@ -28,7 +28,7 @@ export default function KelolaProdukPage() {
     { id: 1, nama: "Mie Goreng", kode_produk: "0001", harga_modal: 7000, harga_jual: 12000, stok: 10, gambar: null, kategori: "Makanan", status: "Aktif" },
     { id: 2, nama: "Mie Iblis", kode_produk: "0002", harga_modal: 8000, harga_jual: 15000, stok: 8, gambar: null, kategori: "Makanan", status: "Aktif" },
     { id: 3, nama: "Es Teh Manis", kode_produk: null, harga_modal: 2000, harga_jual: 6000, stok: 20, gambar: null, kategori: "Minuman", status: "Aktif" },
-    { id: 4, nama: "Es Milo", kode_produk: null, harga_modal: 5000, harga_jual: 12000, stok: 12, gambar: null, kategori: "Minuman", status: "Tidak Aktif" },
+    { id: 4, nama: "Es Milo", kode_produk: null, harga_modal: 5000, harga_jual: 12000, stok: 12, gambar: null, kategori: "Minuman", status: "Nonaktif" },
     { id: 5, nama: "Ayam Geprek", kode_produk: "0005", harga_modal: 12000, harga_jual: 22000, stok: 6, gambar: null, kategori: "Makanan", status: "Aktif" },
     { id: 6, nama: "Nasi Kuning", kode_produk: "0006", harga_modal: 9000, harga_jual: 16000, stok: 7, gambar: null, kategori: "Makanan", status: "Aktif" }
   ]);
@@ -85,7 +85,7 @@ export default function KelolaProdukPage() {
 
   // soft delete -> set status to Tidak Aktif
   const handleSoftDelete = (id: number) => {
-    setProduk(prev => prev.map(p => p.id === id ? { ...p, status: "Tidak Aktif" } : p));
+    setProduk(prev => prev.map(p => p.id === id ? { ...p, status: "Nonaktif" } : p));
   };
 
   // reactivate

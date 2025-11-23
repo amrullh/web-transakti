@@ -49,7 +49,7 @@ export default function KelolaOutlet() {
     <div className="outlet-wrapper">
 
       <div className="top-bar">
-        <h2>Kelola Outlet</h2>
+        <h1>Kelola Outlet</h1>
         <button className="btn-add" onClick={openAdd}>+</button>
       </div>
 
@@ -90,8 +90,11 @@ export default function KelolaOutlet() {
 
             <label>Jenis Bisnis</label>
             <select>
-              <option>Fashion</option>
-              <option>Kuliner</option>
+              <option>Fashion dan Gaya Hidup</option>
+              <option>Makanan dan Minuman</option>
+              <option>Kesehatan dan Kecantikan</option>
+              <option>Teknologi dan Digital</option>
+              <option>Properti dan Jasa</option>
             </select>
 
             <label>Kategori</label>
@@ -120,8 +123,11 @@ export default function KelolaOutlet() {
 
             <label>Jenis Bisnis</label>
             <select defaultValue={selectedOutlet.kategori[0]}>
-              <option>Fashion</option>
-              <option>Kuliner</option>
+              <option>Fashion dan Gaya Hidup</option>
+              <option>Makanan dan Minuman</option>
+              <option>Kesehatan dan Kecantikan</option>
+              <option>Teknologi dan Digital</option>
+              <option>Properti dan Jasa</option>
             </select>
 
             <label>Kategori</label>
