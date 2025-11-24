@@ -117,7 +117,6 @@
   align-items: center;
   z-index: 999;
   padding: 20px;
-  /* Tambahkan overflow-y: auto; agar overlay bisa di-scroll jika konten modal panjang */
   overflow-y: auto; 
 }
 
@@ -133,8 +132,7 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   position: relative;
   animation: modal-fade-in 0.2s ease-out;
-  /* Atur agar modal mengambil lebar/tinggi maksimal dalam overlay padding */
-  max-height: calc(100vh - 40px); /* Memastikan ada ruang 20px di atas dan bawah */
+  max-height: calc(100vh - 40px); 
 }
 
 .popup-card h3 {

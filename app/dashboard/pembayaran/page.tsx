@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Eye, Trash2, X } from "lucide-react";
 import "./pembayaran.css";
 
-// Interface untuk rekening agar lebih rapi
 interface Rekening {
   bank: string;
   norek: string;
@@ -20,20 +19,16 @@ export default function Pembayaran() {
   const [qrisImage, setQrisImage] = useState<string | null>(null);
   const [showQrisPreview, setShowQrisPreview] = useState(false);
 
-  // Rekening (Kita gunakan array yang menampung 1-N rekening.)
   const [rekeningList, setRekeningList] = useState<Rekening[]>([]); 
   
   const [showModal, setShowModal] = useState(false);
 
-  // Data input modal (biarkan tetap seperti ini)
   const [bank, setBank] = useState("");
   const [norek, setNorek] = useState("");
   const [nama, setNama] = useState("");
 
-  // Preview Rekening
   const [previewRekening, setPreviewRekening] = useState<Rekening | null>(null);
   
-  // Variabel bantu untuk memutuskan tombol mana yang tampil
   const hasRekening = rekeningList.length > 0;
 
   // Upload QRIS
@@ -43,7 +38,7 @@ export default function Pembayaran() {
     const reader = new FileReader();
     reader.onload = () => setQrisImage(reader.result as string);
     reader.readAsDataURL(file);
-    setIsQris(true); // Pastikan QRIS aktif jika gambar diunggah
+    setIsQris(true); 
   };
 
   // Tambah Rekening
@@ -51,27 +46,23 @@ export default function Pembayaran() {
     if (!bank || !norek || !nama) return alert("Lengkapi semua data!");
 
     const newRek: Rekening = { bank, norek, nama };
-    // Tambahkan rekening ke dalam list
     setRekeningList([...rekeningList, newRek]);
 
-    // Reset form input
     setBank("");
     setNorek("");
     setNama("");
 
     setShowModal(false);
-    setIsTransfer(true); // Pastikan Transfer aktif jika rekening ditambahkan
+    setIsTransfer(true);
   };
 
   // Hapus Rekening
   const deleteRekening = (index: number) => {
     const updated = rekeningList.filter((_, i) => i !== index);
     setRekeningList(updated);
-    // Jika list kosong setelah hapus, nonaktifkan Transfer (opsional)
     if (updated.length === 0) setIsTransfer(false); 
   };
   
-  // Tampilkan Modal Detail Rekening
   const openRekeningPreview = (rek: Rekening) => {
       setPreviewRekening(rek);
   }
@@ -103,10 +94,8 @@ export default function Pembayaran() {
       </div>
 
       {/* ====== AREA KONFIGURASI TRANSFER ====== */}
-      {/* Area ini hanya tampil jika isTransfer AKTIF */}
       {isTransfer && (
         <div className="transfer-config-area">
-          {/* Loop untuk menampilkan RINGKASAN SETIAP REKENING */}
           {rekeningList.map((rek, index) => (
             <div className="rekening-summary-item" key={index}>
               <div className="rekening-info-ringkas">
@@ -116,7 +105,7 @@ export default function Pembayaran() {
               <div className="rekening-actions">
                 <button 
                     className="icon-btn" 
-                    // Saat diklik, tampilkan modal detail
+                  
                     onClick={() => openRekeningPreview(rek)}
                 >
                   <Eye size={22} />
@@ -131,11 +120,9 @@ export default function Pembayaran() {
             </div>
           ))}
 
-          {/* Tombol Tambah Nomor Rekening (Selalu tampil di dalam transfer-config-area jika isTransfer aktif) */}
           <button 
               className="btn-rekening" 
               onClick={() => setShowModal(true)}
-              // Berikan margin atas hanya jika sudah ada rekening lain di atasnya
               style={{ marginTop: hasRekening ? '10px' : '0' }}
           >
             + Tambah Nomor Rekening

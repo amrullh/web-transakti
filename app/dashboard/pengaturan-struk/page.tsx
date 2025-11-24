@@ -103,7 +103,7 @@ export default function PengaturanStrukKonten() {
           header={headerText}
           footer={footerText}
           outletName={outletName}
-          isDiscountEnabled={isDiscountEnabled} // <-- prop baru
+          isDiscountEnabled={isDiscountEnabled} 
         />
       )}
     </div>
@@ -115,7 +115,7 @@ function ModalPreview({
   header,
   footer,
   outletName,
-  isDiscountEnabled, // <-- terima prop
+  isDiscountEnabled,
 }: {
   close: () => void;
   header: string;
@@ -156,7 +156,7 @@ function ModalPreview({
               <span>Rp10.000</span>
             </div>
 
-            {isDiscountEnabled && ( // <-- hanya tampil jika diskon aktif
+            {isDiscountEnabled && ( 
               <div className="receipt-row faded">
                 <span>Diskon</span>
                 <span>Rp1.500</span>
