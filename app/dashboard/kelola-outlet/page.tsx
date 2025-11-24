@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import "./outlet.css";
+import { MdEdit, MdDelete } from "react-icons/md";
 
 export default function KelolaOutlet() {
   const [outlets, setOutlets] = useState([
@@ -69,7 +70,7 @@ export default function KelolaOutlet() {
       nama: formNama,
       alamat: formAlamat,
       kategori: [formJenis, formKategori],
-      warna: "#d6e7ea" // warna seperti MAKAN MADURA
+      warna: "#d6e7ea" 
     };
 
     setOutlets([...outlets, newOutlet]);
@@ -122,8 +123,13 @@ export default function KelolaOutlet() {
             </div>
 
             <div className="actions">
-              <button className="edit" onClick={() => openEdit(o)}>✏️</button>
-              <button className="delete" onClick={() => openDelete(o)}>🗑️</button>
+              <button className="edit" onClick={() => openEdit(o)}>
+                <MdEdit size={20} />
+              </button>
+
+              <button className="delete" onClick={() => openDelete(o)}>
+                <MdDelete size={20} />
+              </button>
             </div>
           </div>
         ))}

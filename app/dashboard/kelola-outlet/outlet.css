@@ -242,6 +242,28 @@
   cursor: pointer;
 }
 
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.actions button.edit:hover {
+  background: #e7f0ff;
+}
+
+.actions button.delete:hover {
+  background: #ffe7e7;
+}
+
+.actions svg {
+  color: #333;
+}
+
+
 /* Animasi */
 @keyframes modal-fade-in {
   from {
