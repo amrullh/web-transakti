@@ -1,0 +1,276 @@
+/* =============================
+   CONTAINER & TITLE
+============================= */
+
+.pembayaran-container {
+  padding: 20px 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.title {
+    unicode-bidi: isolate;
+    margin-block: .67em;
+    margin-inline: 0;
+    font-size: 2em;
+    font-weight: bold;
+    display: block;
+}
+
+/* =============================
+   CARD PEMBAYARAN
+============================= */
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.card.active {
+  border-color: #2F7AE5;  /* Biru highlight */
+}
+
+/* =============================
+   SWITCH STYLE (iOS style)
+============================= */
+
+.switch {
+  position: relative;
+  width: 46px;
+  height: 24px;
+  display: inline-block;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #b3b3b3;
+  border-radius: 24px;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 2px;
+  top: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  background: #3A8891;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* =============================
+   BUTTON - TRANSFER / QRIS
+============================= */
+
+.btn-rekening,
+.btn-upload {
+  margin-left: 4px;
+  margin-bottom: 16px;
+  background: #9BBEC8;
+  padding: 12px 22px;
+  border-radius: 40px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.btn-rekening:hover,
+.btn-upload:hover {
+  background: #8ab0bd;
+}
+
+/* =============================
+   QRIS PREVIEW BUTTONS
+============================= */
+
+.qris-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.icon-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: #E4F3FF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.icon-btn:hover {
+  background: #d6eefe;
+}
+
+.icon-btn.delete {
+  background: #ffd9d9;
+}
+
+.icon-btn.delete:hover {
+  background: #ffcccc;
+}
+
+/* =============================
+   MODAL OVERLAY
+============================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+/* =============================
+   MODAL CARD
+============================= */
+
+.modal-card {
+  background: #ffffff;
+  width: 85%;
+  max-width: 520px;
+  border-radius: 35px;
+  padding: 26px;
+  padding-top: 32px;
+  position: relative;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================
+   MODAL HEADER
+============================= */
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #134574;
+  text-align: center;
+  width: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  right: 22px;
+  top: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* =============================
+   INPUT FIELD
+============================= */
+
+.modal-body label {
+  display: block;
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  background: #f2f2f2;
+  padding: 12px 1px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  margin-top: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+
+/* =============================
+   SUBMIT BUTTON
+============================= */
+
+.btn-submit {
+  width: 100%;
+  background: #6D9BA8;
+  padding: 14px 18px;
+  border-radius: 30px;
+  border: none;
+  margin-top: 24px;
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-submit:hover {
+  background: #5e8e9c;
+}

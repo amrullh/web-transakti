@@ -22,7 +22,7 @@ export default function PengaturanStrukKonten() {
   // STATE HEADER, FOOTER, NAMA TOKO
   const [headerText, setHeaderText] = useState("Header Struk");
   const [footerText, setFooterText] = useState("Terima Kasih");
-  const [outletName, setOutletName] = useState("Nama Toko");
+  const [outletName, setOutletName] = useState("Cantik Madura");
 
   // MODAL EDIT
   const [editType, setEditType] = useState<"header" | "footer" | null>(null);
@@ -102,7 +102,8 @@ export default function PengaturanStrukKonten() {
           close={() => setShowPreview(false)}
           header={headerText}
           footer={footerText}
-          outletName={outletName}   
+          outletName={outletName}
+          isDiscountEnabled={isDiscountEnabled} // <-- prop baru
         />
       )}
     </div>
@@ -114,11 +115,13 @@ function ModalPreview({
   header,
   footer,
   outletName,
+  isDiscountEnabled, // <-- terima prop
 }: {
   close: () => void;
   header: string;
   footer: string;
-  outletName: string;   // <- DITAMBAHKAN
+  outletName: string;
+  isDiscountEnabled: boolean;
 }) {
   return (
     <div className="overlay">
@@ -153,10 +156,12 @@ function ModalPreview({
               <span>Rp10.000</span>
             </div>
 
-            <div className="receipt-row faded">
-              <span>Diskon</span>
-              <span>Rp1.500</span>
-            </div>
+            {isDiscountEnabled && ( // <-- hanya tampil jika diskon aktif
+              <div className="receipt-row faded">
+                <span>Diskon</span>
+                <span>Rp1.500</span>
+              </div>
+            )}
           </div>
 
           <hr />

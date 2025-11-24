@@ -154,11 +154,12 @@
 .popup-card input,
 .popup-card select {
   width: 100%;
-  padding: 12px 1px;
+  padding: 12px 10px;
   border-radius: 10px;
   border: 1px solid #d1d5db;
   font-size: 15px;
   margin-bottom: 1px;
+  box-sizing: border-box;
 }
 
 /* Tombol Submit (Primary) */
