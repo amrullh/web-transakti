@@ -68,16 +68,25 @@ export default function KelolaProdukPage() {
   const start = (currentPage - 1) * perPage;
   const pageItems = filtered.slice(start, start + perPage);
 
-  // CRUD handlers (local state)
-  const handleCreate = (payload: Omit<ProductType, "id" | "status"> & { status?: ProductType["status"] }) => {
-    const next: ProductType = {
-      id: produk.length ? Math.max(...produk.map(p => p.id)) + 1 : 1,
-      status: "Aktif",
-      ...payload
-    } as ProductType;
-    setProduk(prev => [next, ...prev]);
-    setCurrentPage(1);
-  };
+// CRUD handlers (local state)
+const handleCreate = (payload: Omit<ProductType, "id" | "status"> & { status?: ProductType["status"] }) => {
+  const nextId = produk.length ? Math.max(...produk.map(p => p.id)) + 1 : 1;
+  const next: ProductType = {
+    id: nextId,
+    status: "Aktif",
+    ...payload
+  } as ProductType;
+  
+  // 1. Tambahkan item baru ke list yang sudah ada
+  const newList = [...produk, next]; 
+
+  // 2. Urutkan seluruh list berdasarkan ID (numerik)
+  // Menggunakan sort dengan fungsi komparasi numerik (a.id - b.id)
+  newList.sort((a, b) => a.id - b.id);
+  
+  setProduk(newList);
+  setCurrentPage(1);
+};
 
   const handleUpdate = (id: number, updated: Partial<ProductType>) => {
     setProduk(prev => prev.map(p => p.id === id ? { ...p, ...updated } : p));

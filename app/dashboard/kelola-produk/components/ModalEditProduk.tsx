@@ -37,7 +37,7 @@ export default function ModalEditProduk({ data, onClose, onSave }: { data: Produ
             <input type="number" style={{ width: "100%", padding: 10, marginBottom: 12 }} value={form.stok} onChange={(e) => setForm({ ...form, stok: Number(e.target.value) })} />
 
             <label style={{ display: "block", marginBottom: 6 }}>Kategori</label>
-            <select style={{ width: "100%", padding: 10 }} value={form.kategori} onChange={(e) => setForm({ ...form, kategori: e.target.value as ProductType["kategori"] })}>
+            <select style={{ width: "106%", padding: 10 }} value={form.kategori} onChange={(e) => setForm({ ...form, kategori: e.target.value as ProductType["kategori"] })}>
               <option value="Makanan">Makanan</option>
               <option value="Minuman">Minuman</option>
             </select>
