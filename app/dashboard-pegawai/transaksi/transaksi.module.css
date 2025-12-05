@@ -1,26 +1,32 @@
-/* CONTAINER UTAMA */
 .container {
   display: flex;
+  height: 100vh;
+  width: 100%;
   overflow: hidden;
+  background-color: #ffffff;
 }
 
-/* LEFT SIDE */
+
 .left {
-  width: 66.5%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
 }
 
 .header {
-  position: fixed;
-  top: 0;
-  z-index: 20;
-  padding: 10px 0;
+  padding: 20px 25px;
   background: #fff;
-  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+  z-index: 10;
+  flex-shrink: 0;
 }
 
 .title {
-  margin-bottom: 1.5rem;
-  margin-top: 45px;
+  margin: 0 0 1rem 0;
+  font-size: 1.8rem;
+  color: #205781;
 }
 
 .searchRow {
@@ -29,98 +35,172 @@
 }
 
 .searchInput {
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  width: 450px;
+  flex: 1;
+  outline: none;
 }
 
 .filterSelect {
-  width: 130px;
+  width: 140px;
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  cursor: pointer;
+  outline: none;
 }
 
+
 .productList {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 15px;
-  margin-top: 130px;
-  padding: 0 5px 5px;
+
+
+  align-items: start;
+  align-content: start;
 }
 
 .productCard {
-  background: #f7f7f7;
+  background: #fff;
   border-radius: 12px;
-  padding: 10px 10px 1px;
+  padding: 10px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
   border: 1px solid #eaeaea;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+
+
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  gap: 6px;
+
 }
 
 .productCard:hover {
-  transform: scale(1.03);
+  transform: translateY(-3px);
+  border-color: #316c91;
+  box-shadow: 0 5px 12px rgba(49, 108, 145, 0.15);
+}
+
+
+
+.cardContentTop {
+  display: flex;
+  flex-direction: column;
+}
+
+.productImgWrapper {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .productImg {
-  border-radius: 10px;
-  width: 100%;
-  height: 100px;
+  border-radius: 8px;
   object-fit: cover;
 }
 
 .productName {
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: -10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  margin-bottom: 0;
+  color: #333;
+
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .productPrice {
   font-size: 0.9rem;
+  color: #205781;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.cardContentBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 4px;
 }
 
 .productStock {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  text-align: center;
+  font-size: 0.75rem;
+  color: #888;
+  margin: 0;
 }
 
-/* RIGHT SIDE */
+
+.promoBadge {
+  background: #ffe4e6;
+  color: #be123c;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1;
+}
+
+
+.promoPlaceholder {
+  display: none;
+}
+
+
+
 .right {
-  position: fixed; 
-  top: 0;
-  right: 0;
-  width: 25%;
-  height: 100vh;
+  width: 380px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   border-left: 2px solid #eaeaea;
-  padding: 20px; 
-  box-sizing: border-box;
-  z-index: 90;
+  background: #fdfdfd;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.02);
+  z-index: 20;
 }
 
-/* Judul daftar belanja */
 .belanjaTitle {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 15px;
+  padding: 20px 20px 10px;
+  margin: 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-/* Daftar belanja scrollable */
 .cartWrapper {
-  height:500px;
+  flex: 1;
   overflow-y: auto;
+  padding: 15px 20px;
 }
 
 .emptyText {
-  opacity: 0.8;
+  color: #999;
   text-align: center;
+  margin-top: 50px;
+  font-style: italic;
 }
 
 .cartItem {
-  padding: 0 12px 6px;
+  background: #fff;
+  padding: 10px;
   border-radius: 10px;
   margin-bottom: 12px;
   border: 1px solid #ececec;
@@ -129,179 +209,197 @@
 .cartTop {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 5px;
 }
 
 .cartName {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 13px;
+  color: #333;
+  margin-right: 5px;
 }
 
 .removeBtn {
   background: none;
   border: none;
-  color: red;
+  color: #ff4d4f;
   font-size: 1.2rem;
   cursor: pointer;
+  padding: 0;
+  line-height: 1;
 }
 
 .cartBottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -10px;
+  margin-top: 8px;
 }
 
 .qtyInput {
   width: 50px;
-  padding: 6px;
+  padding: 4px 8px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   font-size: 13px;
+  text-align: center;
 }
 
 .cartPrice {
   font-weight: bold;
-  color: #000000;
+  color: #205781;
   font-size: 13px;
+  margin: 0;
 }
 
-/* HARGA */
 
-.infoTransaksi{
+.infoTransaksi {
+  padding: 20px;
+  background: #fff;
+  border-top: 2px solid #eaeaea;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.priceInfo p {
   display: flex;
   justify-content: space-between;
-  border-top: 2px solid #eaeaea;
-}
-
-.trashBtn {
-  font-size: 25px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  color:#7d0a0a;
-  margin-top:20px;
-}
-
-.trashBtn:hover {
-  color: #4b0101;
+  margin: 5px 0;
+  font-size: 13px;
+  color: #555;
 }
 
 .totalHarga {
-  font-size: 1.4rem;
-  margin-top: 5px;
+  font-size: 1.3rem;
+  margin-top: 10px;
   font-weight: bold;
   color: #205781;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
 }
 
-/* === PEMBAYARAN === */
+.trashBtn {
+  font-size: 20px;
+  cursor: pointer;
+  color: #d42626;
+  float: right;
+  margin-top: -105px;
+  margin-right: -5px;
+}
 
 .choosePay {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  margin-bottom: -5px;
-  color:#000000;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  color: #333;
 }
 
 .selectPayment {
-  width: 160px;              
-  padding: 8px 10px;         
+  width: 100%;
+  padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
-  background: #ffffff;
-  transition: 0.2s ease;
-}
-
-.selectPayment:hover {
-  border-color: #316c91;
+  background: #f9f9f9;
 }
 
 .customerInput {
-  margin-top: 18px;
-  width: 92%;
-  padding: 12px;
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .btnPayment {
-  background: #316c91;        
-  border: none;               
+  background: #316c91;
+  width: 100%;
+  border: none;
   border-radius: 10px;
-  margin-top: 13px;
-  padding: 12px 5px;
+  margin-top: 15px;
+  padding: 14px;
   color: #fff;
   font-weight: bold;
+  font-size: 15px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .btnPayment:hover {
-  background: #205781;        /* versi lebih gelap untuk hover */
+  background: #205781;
+  transform: translateY(-1px);
 }
 
-/* POPUP KONFIRMASI HAPUS */
+
 .popupOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .popupBox {
   background: white;
-  padding: 18px 22px 35px;
-  width: 360px;
-  border-radius: 12px;
+  padding: 25px;
+  width: 320px;
+  border-radius: 16px;
   text-align: center;
-  animation: pop .2s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: pop .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes pop {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .popupTitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .popupActions {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 10px;
 }
 
 .cancelBtn {
-  padding: 9px 16px;
+  flex: 1;
+  padding: 10px;
   border-radius: 8px;
-  border: 1px solid #aaa;
-  background: #eee;
+  border: 1px solid #ddd;
+  background: #fff;
   cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
+  font-weight: 600;
+  color: #555;
 }
-
-.cancelBtn:hover { background: #dcdcdc; }
 
 .deleteBtn {
-  padding: 9px 16px;
+  flex: 1;
+  padding: 10px;
   border-radius: 8px;
   border: none;
-  background: #d42626;
+  background: #ff4d4f;
   color: white;
   cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
+  font-weight: 600;
 }
-
-.deleteBtn:hover { background: #b81818; }
-
-
-

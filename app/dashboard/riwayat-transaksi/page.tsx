@@ -1,143 +1,83 @@
 "use client";
-
-import { useState, useMemo } from "react";
+// app/dashboard/riwayat-transaksi/page.tsx
+import { useState, useMemo, useEffect } from "react";
 import styles from "./RiwayatTransaksi.module.css";
 import Pagination from "../../../components/Pagination";
 import FilterRiwayat from "./components/FilterRiwayat";
 import ModalDetailTransaksi from "./components/ModalDetailTransaksi";
+import { db } from "@/lib/firebase";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+
 
 export interface DetailItem {
   id_produk: string;
-  nama: string;
+  nama_produk: string; 
   jumlah: number;
-  harga: number;
+  harga_satuan: number; 
   subtotal: number;
+  diskon_per_item?: number;
 }
 
 export interface TransaksiType {
   id: string;
+  id_transaksi_readable?: string; 
   tanggal: string;
   waktu: string;
-  total: number;
+  total: number; 
   metode: string;
   kasir: string;
   items: DetailItem[];
-  diskon: number;
-  pajak: number;
-  total_bayar: number;
+  diskon: number; 
+  pajak: number;  
+  subtotal_murni: number; 
+  nama_pelanggan: string;
 }
 
 export default function RiwayatTransaksiPage() {
-    const [data] = useState<TransaksiType[]>([
-    {
-        id: "TRX-007",
-        tanggal: "2025-01-25",
-        waktu: "17:10",
-        total: 45000,
-        metode: "Cash",
-        kasir: "Dita",
-        diskon: 0,
-        pajak: 0,
-        total_bayar: 45000,
-        items: [
-        { id_produk: "P003", nama: "Es Teh", jumlah: 3, harga: 5000, subtotal: 15000 },
-        { id_produk: "P002", nama: "Nasi Goreng", jumlah: 1, harga: 30000, subtotal: 30000 }
-        ],
-    },
-    {
-        id: "TRX-006",
-        tanggal: "2025-01-25",
-        waktu: "15:44",
-        total: 78000,
-        metode: "QRIS",
-        kasir: "Ana",
-        diskon: 3000,
-        pajak: 5000,
-        total_bayar: 80000,
-        items: [
-        { id_produk: "P001", nama: "Mie Goreng", jumlah: 2, harga: 20000, subtotal: 40000 },
-        { id_produk: "P004", nama: "Teh Botol", jumlah: 2, harga: 8000, subtotal: 16000 },
-        { id_produk: "P006", nama: "Kerupuk", jumlah: 2, harga: 6000, subtotal: 12000 },
-        ],
-    },
-    {
-        id: "TRX-005",
-        tanggal: "2025-01-24",
-        waktu: "13:20",
-        total: 30000,
-        metode: "Transfer",
-        kasir: "Rian",
-        diskon: 0,
-        pajak: 0,
-        total_bayar: 30000,
-        items: [
-        { id_produk: "P002", nama: "Nasi Goreng", jumlah: 1, harga: 30000, subtotal: 30000 }
-        ],
-    },
-    {
-        id: "TRX-004",
-        tanggal: "2025-01-23",
-        waktu: "11:15",
-        total: 52000,
-        metode: "QRIS",
-        kasir: "Dita",
-        diskon: 0,
-        pajak: 2000,
-        total_bayar: 54000,
-        items: [
-        { id_produk: "P007", nama: "Ayam Geprek", jumlah: 1, harga: 25000, subtotal: 25000 },
-        { id_produk: "P003", nama: "Es Teh", jumlah: 2, harga: 5000, subtotal: 10000 },
-        { id_produk: "P006", nama: "Kerupuk", jumlah: 2, harga: 6000, subtotal: 12000 },
-        ],
-    },
-    {
-        id: "TRX-003",
-        tanggal: "2025-01-21",
-        waktu: "12:44",
-        total: 150000,
-        metode: "QRIS",
-        kasir: "Ana",
-        diskon: 0,
-        pajak: 10000,
-        total_bayar: 160000,
-        items: [
-        { id_produk: "P001", nama: "Mie Goreng", jumlah: 2, harga: 20000, subtotal: 40000 },
-        { id_produk: "P003", nama: "Es Teh", jumlah: 3, harga: 5000, subtotal: 15000 },
-        { id_produk: "P002", nama: "Nasi Goreng", jumlah: 2, harga: 30000, subtotal: 60000 },
-        ],
-    },
-    {
-        id: "TRX-002",
-        tanggal: "2025-01-20",
-        waktu: "10:22",
-        total: 90000,
-        metode: "Cash",
-        kasir: "Dita",
-        diskon: 0,
-        pajak: 0,
-        total_bayar: 90000,
-        items: [
-        { id_produk: "P005", nama: "Ayam Geprek", jumlah: 2, harga: 30000, subtotal: 60000 },
-        { id_produk: "P003", nama: "Es Teh", jumlah: 3, harga: 5000, subtotal: 15000 },
-        ],
-    },
-    {
-        id: "TRX-001",
-        tanggal: "2025-01-19",
-        waktu: "09:50",
-        total: 18000,
-        metode: "Transfer",
-        kasir: "Rian",
-        diskon: 0,
-        pajak: 0,
-        total_bayar: 18000,
-        items: [
-        { id_produk: "P003", nama: "Es Teh", jumlah: 2, harga: 5000, subtotal: 10000 },
-        { id_produk: "P006", nama: "Kerupuk", jumlah: 1, harga: 8000, subtotal: 8000 },
-        ],
-    },
-    ]);
+  const [data, setData] = useState<TransaksiType[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  
+  useEffect(() => {
+    
+    
+    const q = query(collection(db, "transactions"), orderBy("createdAt", "desc"));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedData = snapshot.docs.map((doc) => {
+        const d = doc.data();
+        return {
+          id: doc.id, 
+          id_transaksi_readable: d.id_transaksi || doc.id.substring(0, 8).toUpperCase(),
+          tanggal: d.tanggal,
+          waktu: d.waktu,
+
+          
+          total: Number(d.harga_total),
+          metode: d.metode,
+
+          
+          kasir: d.kasir || "Unknown",
+          nama_pelanggan: d.nama_pelanggan || "-",
+
+          items: d.items || [],
+          diskon: Number(d.nilai_diskon_total || 0),
+          pajak: Number(d.nilai_pajak_diterapkan || 0),
+          subtotal_murni: Number(d.subtotal_transaksi || 0)
+        } as TransaksiType;
+      });
+
+      setData(fetchedData);
+      setLoading(false);
+    }, (error) => {
+      console.error("Error fetching transactions:", error);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  
   const [metodeFilter, setMetodeFilter] = useState("");
   const [dari, setDari] = useState("");
   const [sampai, setSampai] = useState("");
@@ -179,38 +119,58 @@ export default function RiwayatTransaksiPage() {
           <thead>
             <tr>
               <th>ID Transaksi</th>
-              <th>Tanggal</th>
-              <th>Waktu</th>
-              <th>Total</th>
+              <th>Tanggal & Waktu</th>
+              <th>Kasir</th>
+              <th>Pelanggan</th>
               <th>Metode</th>
+              <th>Total Bayar</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {items.map((t) => (
-              <tr key={t.id}>
-                <td>{t.id}</td>
-                <td>{t.tanggal}</td>
-                <td>{t.waktu}</td>
-                <td>Rp {t.total.toLocaleString("id-ID")}</td>
-                <td>{t.metode}</td>
-                <td>
-                  <button
-                    className={styles.btnDetail}
-                    onClick={() => setDetailOpen(t)}
-                  >
-                    Detail
-                  </button>
-                </td>
-              </tr>
-            ))}
-
-            {items.length === 0 && (
+            {loading ? (
+              <tr><td colSpan={7} style={{ textAlign: "center", padding: 20 }}>Memuat data...</td></tr>
+            ) : items.length === 0 ? (
               <tr>
-                <td colSpan={6} className={styles.empty}>
-                  Tidak ada data
+                <td colSpan={7} className={styles.empty}>
+                  Tidak ada data transaksi
                 </td>
               </tr>
+            ) : (
+              items.map((t) => (
+                <tr key={t.id}>
+                  <td style={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
+                    #{t.id_transaksi_readable}
+                  </td>
+                  <td>
+                    {t.tanggal} <span style={{ color: '#666', fontSize: '0.85em' }}>({t.waktu})</span>
+                  </td>
+                  <td>{t.kasir}</td>
+                  <td>{t.nama_pelanggan}</td>
+                  <td>
+                    <span style={{
+                      padding: "4px 8px",
+                      borderRadius: "6px",
+                      fontSize: "12px",
+                      background: t.metode === "Bayar Tunai" ? "#e0f2fe" : "#f0fdf4",
+                      color: t.metode === "Bayar Tunai" ? "#0369a1" : "#15803d"
+                    }}>
+                      {t.metode}
+                    </span>
+                  </td>
+                  <td style={{ fontWeight: 'bold' }}>
+                    Rp {t.total.toLocaleString("id-ID")}
+                  </td>
+                  <td>
+                    <button
+                      className={styles.btnDetail}
+                      onClick={() => setDetailOpen(t)}
+                    >
+                      Detail
+                    </button>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>
