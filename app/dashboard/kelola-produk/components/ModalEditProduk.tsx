@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import modal from "../Modal.module.css";
 import { ProductType } from "../page";
 
-export default function ModalEditProduk({ data, onClose, onSave }: { data: ProductType; onClose: () => void; onSave: (id: number, payload: Partial<ProductType>) => void; }) {
+export default function ModalEditProduk({ data, onClose, onSave }: { data: ProductType; onClose: () => void; onSave: (id: string, payload: Partial<ProductType>) => void; }) {
   const [form, setForm] = useState<ProductType>(data);
 
   useEffect(() => setForm(data), [data]);
