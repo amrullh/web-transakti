@@ -365,6 +365,12 @@ export default function TransaksiPage() {
         <div className={styles.choosePay}>
           <p>Pilih metode pembayaran:</p>
         </div>
+
+        <select className={styles.selectPayment} value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+          <option>Bayar Tunai</option>
+          <option>Bayar Qris</option>
+          <option>Transfer</option>
+        </select>
         
         <button className={styles.btnPayment} onClick={handleBayar}>
           Bayar Sekarang
