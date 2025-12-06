@@ -3,11 +3,10 @@
 import styles from './transfer.module.css';
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore'; // Import Firestore
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from "@/lib/firebase"; 
-import ReceiptModal from '../components/ReceiptModal'; // Import modal struk
+import ReceiptModal from '../components/ReceiptModal';
 
-// Definisikan tipe dan konstanta
 const RECEIPT_SETTING_DOC_ID = "receipt_OUT001";
 const PAYMENT_SETTING_DOC_ID = "payment_OUT001";
 
@@ -23,6 +22,7 @@ interface ReceiptSettings {
     outletName: string;
     isDiscountEnabled: boolean;
 }
+
 interface TransactionData {
     items: any[];
     subtotal: number;
@@ -35,31 +35,23 @@ interface TransactionData {
     tanggal: string; 
 }
 
-
 export default function PembayaranTransferPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
-  // State untuk Struk
   const [showReceipt, setShowReceipt] = useState(false); 
   const [receiptSettings, setReceiptSettings] = useState<ReceiptSettings | null>(null);
   const [transactionDetails, setTransactionDetails] = useState<TransactionData | null>(null);
-  
-  // State untuk Rekening Transfer
   const [rekeningList, setRekeningList] = useState<Rekening[]>([]);
   const [rekeningLoading, setRekeningLoading] = useState(true);
 
-  // Fungsi untuk menutup struk dan navigasi
   const handleCloseReceipt = () => {
       setShowReceipt(false);
-      router.push("/dashboard-pegawai/transaksi"); // Navigasi ke halaman transaksi setelah struk ditutup
+      router.push("/dashboard-pegawai/transaksi");
   }
 
-  // 1. Ambil Pengaturan Struk dan Rekening Transfer dari Firestore
   useEffect(() => {
     const fetchSettings = async () => {
         try {
-            // Ambil Pengaturan Struk
             const receiptDocRef = doc(db, "settings", RECEIPT_SETTING_DOC_ID);
             const receiptSnap = await getDoc(receiptDocRef);
             
@@ -80,17 +72,13 @@ export default function PembayaranTransferPage() {
                 });
             }
 
-            // Ambil Rekening Transfer
             const paymentDocRef = doc(db, "settings", PAYMENT_SETTING_DOC_ID);
             const paymentSnap = await getDoc(paymentDocRef);
             
             if (paymentSnap.exists()) {
                 const data = paymentSnap.data();
-                // Ambil list rekening yang disimpan owner
                 setRekeningList(data.rekeningList || []); 
             }
-        } catch (error) {
-            console.error("Gagal memuat pengaturan:", error);
         } finally {
             setRekeningLoading(false);
         }
@@ -121,7 +109,6 @@ export default function PembayaranTransferPage() {
       const result = await res.json();
       if (!res.ok) throw new Error(result.error);
 
-      // 2. Simpan detail transaksi yang sukses dan tampilkan modal
       alert("Pembayaran Transfer Berhasil!");
       setTransactionDetails(transactionData); 
       setShowReceipt(true); 
@@ -135,7 +122,6 @@ export default function PembayaranTransferPage() {
       setLoading(false);
     }
   };
-
 
   return (
     <div className={styles.container}>
@@ -162,13 +148,12 @@ export default function PembayaranTransferPage() {
         <button
           className={styles.goTransaksiBtn}
           onClick={handleSelesai}
-          disabled={loading || !selectedRekening} // Disable jika loading atau tidak ada rekening
+          disabled={loading || !selectedRekening}
         >
           {loading ? "Memproses..." : "Selesai"}
         </button>
       </div>
 
-      {/* 3. Tampilkan Modal Struk */}
       {showReceipt && transactionDetails && receiptSettings && (
           <ReceiptModal
               transaction={transactionDetails}

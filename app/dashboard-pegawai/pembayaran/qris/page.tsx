@@ -6,10 +6,8 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore'; 
 import { db } from "@/lib/firebase"; 
-// Diasumsikan komponen ini dibuat di langkah pertama
 import ReceiptModal from '../components/ReceiptModal'; 
 
-// Definisikan tipe dan konstanta
 const RECEIPT_SETTING_DOC_ID = "receipt_OUT001";
 const PAYMENT_SETTING_DOC_ID = "payment_OUT001";
 
@@ -31,33 +29,25 @@ interface TransactionData {
     tanggal: string; 
 }
 
-
 export default function PembayaranQrisPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  // State untuk Struk
   const [showReceipt, setShowReceipt] = useState(false); 
   const [receiptSettings, setReceiptSettings] = useState<ReceiptSettings | null>(null);
   const [transactionDetails, setTransactionDetails] = useState<TransactionData | null>(null);
   
-  // State untuk QRIS
   const [qrisImage, setQrisImage] = useState<string | null>(null);
   const [qrisLoading, setQrisLoading] = useState(true);
 
-
-  // Fungsi untuk menutup struk dan navigasi
   const handleCloseReceipt = () => {
       setShowReceipt(false);
-      router.push("/dashboard-pegawai/transaksi"); // Navigasi ke halaman transaksi setelah struk ditutup
+      router.push("/dashboard-pegawai/transaksi");
   }
 
-
-  // Ambil Pengaturan Struk dan QRIS Image dari Firestore
   useEffect(() => {
     const fetchSettings = async () => {
         try {
-            // Ambil Pengaturan Struk
             const receiptDocRef = doc(db, "settings", RECEIPT_SETTING_DOC_ID);
             const receiptSnap = await getDoc(receiptDocRef);
             
@@ -78,13 +68,11 @@ export default function PembayaranQrisPage() {
                 });
             }
 
-            // Ambil QRIS Image
             const paymentDocRef = doc(db, "settings", PAYMENT_SETTING_DOC_ID);
             const paymentSnap = await getDoc(paymentDocRef);
             
             if (paymentSnap.exists()) {
                 const data = paymentSnap.data();
-                // Ambil image base64 yang disimpan owner
                 setQrisImage(data.qrisImage || null); 
             }
         } catch (error) {
@@ -96,10 +84,8 @@ export default function PembayaranQrisPage() {
     fetchSettings();
   }, []);
 
-
   const handleSelesai = async () => {
     setLoading(true);
-
 
     const savedData = localStorage.getItem("temp_transaction");
     if (!savedData) {
@@ -110,7 +96,6 @@ export default function PembayaranQrisPage() {
     const transactionData = JSON.parse(savedData) as TransactionData;
 
     try {
-
       const res = await fetch("/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -120,13 +105,11 @@ export default function PembayaranQrisPage() {
       const result = await res.json();
       if (!res.ok) throw new Error(result.error);
 
-
-      // Simpan detail transaksi yang sukses dan tampilkan modal
       alert("Pembayaran QRIS Berhasil.");
       setTransactionDetails(transactionData); 
       setShowReceipt(true); 
 
-      localStorage.removeItem("temp_transaction"); // Hapus dari localStorage
+      localStorage.removeItem("temp_transaction");
 
     } catch (error: any) {
       alert("Gagal: " + error.message);
@@ -151,7 +134,6 @@ export default function PembayaranQrisPage() {
                 width={300} 
                 height={300} 
                 className={styles.image} 
-                // Gunakan unoptimized untuk base64/data URLs
                 unoptimized
             />
         ) : (
@@ -163,13 +145,12 @@ export default function PembayaranQrisPage() {
         <button
           className={styles.goTransaksiBtn}
           onClick={handleSelesai}
-          disabled={loading || !qrisImage} // Disable jika loading atau tidak ada gambar QRIS
+          disabled={loading || !qrisImage}
         >
           {loading ? "Cek Status..." : "Selesai"}
         </button>
       </div>
       
-      {/* Tampilkan Modal Struk */}
       {showReceipt && transactionDetails && receiptSettings && (
           <ReceiptModal
               transaction={transactionDetails}
