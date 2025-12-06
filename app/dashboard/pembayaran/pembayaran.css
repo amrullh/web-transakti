@@ -1,19 +1,16 @@
 /* =============================
-   CONTAINER & TITLE
+   TITLE
 ============================= */
 
-.pembayaran-container {
-  padding: 20px 24px;
-  font-family: "Inter", sans-serif;
-}
-
 .title {
-    unicode-bidi: isolate;
-    margin-block: .67em;
-    margin-inline: 0;
-    font-size: 2em;
-    font-weight: bold;
     display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
 }
 
 /* =============================

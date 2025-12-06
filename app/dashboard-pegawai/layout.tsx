@@ -1,11 +1,11 @@
 
 
 import React from 'react';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from 'components/Sidebar';
 
 const colors = {
   darkBlue: '#205781',
-  white: '#FFFFFF',
+  white: '#ffffffff',
 };
 
 
@@ -34,7 +34,7 @@ export default function DashboardLayout({
         height: '100vh',
         zIndex: 10
       }}>
-        <Sidebar role={userRole} />
+        <Sidebar />
       </div>
 
       {/* Area Konten Utama */}
