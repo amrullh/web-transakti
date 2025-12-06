@@ -146,12 +146,24 @@ export default function KelolaProdukPage() {
     await handleUpdate(id, { status: "Aktif" } as any);
   };
 
+  function normalizeStatus(str: string) {
+    if (!str) return "";
+    const s = str.toLowerCase();
+
+    if (s.includes("non")) return "nonaktif";
+    if (s.includes("tidak")) return "nonaktif";
+    if (s.includes("aktif")) return "aktif";
+
+    return s;
+  }
 
   const filtered = useMemo(() => {
     return produk.filter(p => {
       if (kategoriFilter && p.kategori !== kategoriFilter) return false;
-      if (statusFilter && p.status !== statusFilter) return false;
+      if (statusFilter && normalizeStatus(p.status) !== normalizeStatus(statusFilter))
+        return false;
       if (search && !p.nama.toLowerCase().includes(search.toLowerCase())) return false;
+
       return true;
     });
   }, [produk, search, kategoriFilter, statusFilter]);

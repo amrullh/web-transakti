@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface Props {
   kategoriFilter: string;
@@ -17,8 +17,22 @@ export default function FilterDropdown({
 }: Props) {
   const [open, setOpen] = useState(false);
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // CLOSE WHEN CLICK OUTSIDE
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <div style={{ position: "relative" }}>
+    <div ref={dropdownRef} style={{ position: "relative" }}>
       <button
         onClick={() => setOpen((v) => !v)}
         style={{
