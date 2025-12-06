@@ -95,7 +95,6 @@ export default function Pembayaran() {
             <div className="rekening-summary-item" key={index}>
               <div className="rekening-info-ringkas">
                   <strong>{rek.bank}</strong> 
-                  <span className="rek-detail">{rek.norek} — {rek.nama}</span>
               </div>
               <div className="rekening-actions">
                 <button 
@@ -137,7 +136,7 @@ export default function Pembayaran() {
         <div className="qris-upload-section">
           {!qrisImage ? (
             <label className="btn-upload">
-              ⬆ Unggah Gambar QRIS
+              Unggah Gambar QRIS
               <input type="file" accept="image/*" onChange={handleUploadQRIS} hidden />
             </label>
           ) : (
