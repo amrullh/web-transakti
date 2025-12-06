@@ -19,10 +19,7 @@ const dummySalesDetails = [
 export default function LaporanPenjualanPage() {
     return (
         <div className={styles.pageContainer}>
-            {/* 1. Header Halaman */}
             <h1 className={styles.header}>Laporan Penjualan</h1>
-
-            {/* 2. Filter Bar  */}
             <div className={styles.filterBar}>
                 <div className={styles.filterPeriod}>
                     <div>
@@ -33,11 +30,7 @@ export default function LaporanPenjualanPage() {
                 </div>
                 <button className={styles.buttonPrimary}>Coto Dg Salabas</button>
             </div>
-
-            {/* 3. Grid Dashboard Utama (2 Kolom) */}
             <div className={styles.dashboardGrid}>
-
-                {/* Kolom Kiri (Berisi semua kartu) */}
                 <div className={styles.leftColumn}>
 
                     <div className={styles.summaryCardGrid}>
@@ -71,7 +64,6 @@ export default function LaporanPenjualanPage() {
 
             </div>
 
-            {/* 4. Tabel Detail Penjualan (Tidak berubah) */}
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>

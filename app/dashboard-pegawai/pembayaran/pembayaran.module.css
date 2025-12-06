@@ -1,9 +1,7 @@
-/* === JUDUL === */
 .title {
   margin-bottom: 10px;
 }
 
-/* === TEKS DESKRIPSI === */
 .subText {
   font-size: 16;
   margin-top: 25px;
@@ -17,7 +15,6 @@
   color: #000;
 }
 
-/* === ILUSTRASI TENGAH === */
 .imageWrapper {
   margin-top: 20px;
   display: flex;
@@ -28,7 +25,6 @@
   object-fit: contain;
 }
 
-/* === BUTTON KE HALAMAN TRANSAKSI === */
 .centerButton {
   display: flex;
   justify-content: center;
@@ -36,7 +32,7 @@
 }
 
 .goTransaksiBtn {
-  background: #569097; /* soft teal */
+  background: #569097;
   border: none;
   padding: 12px 22px;
   font-size: 1rem;
@@ -48,6 +44,6 @@
 }
 
 .goTransaksiBtn:hover {
-  background: #4b7a80; /* sedikit lebih gelap */
+  background: #4b7a80;
   transform: scale(1.03);
 }

@@ -215,7 +215,7 @@ export default function TransaksiPage() {
       <div className={styles.left}>
         <div className={styles.header}>
           <h1 className={styles.title}>Transaksi</h1>
-          <p style={{ fontSize: 14, color: '#666', marginTop: -10, marginBottom: 20 }}>
+          <p style={{ fontSize: 14, color: '#666', marginTop: -15, marginBottom: 25}}>
             Kasir: <strong>{employeeName}</strong>
           </p>
 
@@ -265,7 +265,7 @@ export default function TransaksiPage() {
 
                 {/* 2. BAGIAN KONTEN (REVISI AGAR COMPACT) */}
                 {/* Kita gunakan style inline flex column agar isinya rapat ke atas */}
-                <div style={{ padding: '10px', display: 'flex', flexDirection: 'column', gap: '5px', flex: 1 }}>
+                <div style={{ padding: '5px 10px', display: 'flex', flexDirection: 'column', gap: '5px', flex: 1 }}>
 
                   {/* Nama Produk */}
                   <p className={styles.productName} style={{ marginBottom: '0', lineHeight: '1.3' }}>
@@ -371,7 +371,7 @@ export default function TransaksiPage() {
           <option>Bayar Qris</option>
           <option>Transfer</option>
         </select>
-
+        
         <button className={styles.btnPayment} onClick={handleBayar}>
           Bayar Sekarang
         </button>

@@ -283,7 +283,6 @@ export default function PromoPage() {
                           }
                         </td>
 
-                        {/* KOLOM PRODUK: Menampilkan Nama */}
                         <td style={{ maxWidth: 250, whiteSpace: 'normal', fontSize: 13, lineHeight: 1.4 }}>
                           {produkText}
                         </td>

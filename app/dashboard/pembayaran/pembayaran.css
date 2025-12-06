@@ -1,25 +1,16 @@
-/* =============================
-   CONTAINER & TITLE
-============================= */
-
-.pembayaran-container {
-  padding: 20px 24px;
-  font-family: "Inter", sans-serif;
-}
-
+/* TITLE */
 .title {
-    unicode-bidi: isolate;
-    margin-block: .67em;
-    margin-inline: 0;
-    font-size: 2em;
-    font-weight: bold;
     display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
 }
 
-/* =============================
-   CARD PEMBAYARAN
-============================= */
-
+/* CARD PEMBAYARAN */
 .card {
   background: #ffffff;
   border-radius: 20px;
@@ -37,10 +28,7 @@
   border-color: #2F7AE5;  
 }
 
-/* =============================
-   SWITCH STYLE (iOS style)
-============================= */
-
+/* SWITCH (iOS STYLE) */
 .switch {
   position: relative;
   width: 46px;
@@ -82,10 +70,7 @@
   transform: translateX(22px);
 }
 
-/* =============================
-   BUTTON - TRANSFER / QRIS
-============================= */
-
+/* BUTTON - TRANSFER / QRIS */
 .btn-rekening,
 .btn-upload {
   margin-left: 4px;
@@ -106,10 +91,7 @@
   background: #8ab0bd;
 }
 
-/* =============================
-   QRIS PREVIEW BUTTONS
-============================= */
-
+/* QRIS PREVIEW BUTTONS */
 .qris-actions {
   display: flex;
   gap: 10px;
@@ -141,10 +123,7 @@
   background: #ffcccc;
 }
 
-/* =============================
-   MODAL OVERLAY
-============================= */
-
+/* MODAL OVERLAY */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -155,10 +134,7 @@
   z-index: 200;
 }
 
-/* =============================
-   MODAL CARD
-============================= */
-
+/* MODAL CARD */
 .modal-card {
   background: #ffffff;
   width: 85%;
@@ -175,10 +151,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* =============================
-   MODAL HEADER
-============================= */
-
+/* MODAL HEADER */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -203,10 +176,7 @@
   cursor: pointer;
 }
 
-/* =============================
-   INPUT FIELD
-============================= */
-
+/* INPUT FIELD */
 .modal-body label {
   display: block;
   margin-top: 12px;
@@ -252,11 +222,7 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
-
-/* =============================
-   SUBMIT BUTTON
-============================= */
-
+/* SUBMIT BUTTON */
 .btn-submit {
   width: 100%;
   background: #6D9BA8;

@@ -1,8 +1,10 @@
+// app/dashboard/pengaturan-struk/page.tsx
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Pencil, Eye, X } from "lucide-react";
 import "./struk.css";
-
+import { db } from "@/lib/firebase"; 
+import { doc, getDoc, setDoc } from "firebase/firestore"; 
 interface SettingItemProps {
   label: string;
   onEdit: () => void;
@@ -19,35 +21,99 @@ const SettingItem: React.FC<SettingItemProps> = ({ label, onEdit }) => (
 );
 
 export default function PengaturanStrukKonten() {
-  // STATE HEADER, FOOTER, NAMA TOKO
+  const SETTING_DOC_ID = "receipt_OUT001"; 
+
   const [headerText, setHeaderText] = useState("Header Struk");
   const [footerText, setFooterText] = useState("Terima Kasih");
   const [outletName, setOutletName] = useState("Cantik Madura");
-
-  // MODAL EDIT
   const [editType, setEditType] = useState<"header" | "footer" | null>(null);
   const [tempValue, setTempValue] = useState("");
-
-  // PREVIEW
   const [showPreview, setShowPreview] = useState(false);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(true);
+  const [loading, setLoading] = useState(true); 
+  const [isSaving, setIsSaving] = useState(false); 
+
+  const saveSettings = async (newHeader = headerText, newFooter = footerText, newDiscountEnabled = isDiscountEnabled) => {
+    setIsSaving(true);
+    try {
+      const docRef = doc(db, "settings", SETTING_DOC_ID);
+      await setDoc(docRef, {
+        headerText: newHeader,
+        footerText: newFooter,
+        outletName: outletName,
+        isDiscountEnabled: newDiscountEnabled,
+        updatedAt: new Date().toISOString()
+      }, { merge: true });
+      alert("Pengaturan berhasil disimpan!");
+      return true;
+    } catch (error) {
+      console.error("Gagal menyimpan pengaturan struk:", error);
+      alert("Gagal menyimpan pengaturan.");
+      return false;
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  // --- UPDATE FUNGSI AMBIL ---
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docRef = doc(db, "settings", SETTING_DOC_ID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setHeaderText(data.headerText || headerText);
+          setFooterText(data.footerText || footerText);
+          setOutletName(data.outletName || outletName);
+          setIsDiscountEnabled(data.isDiscountEnabled ?? isDiscountEnabled);
+        }
+      } catch (error) {
+        console.error("Gagal memuat pengaturan struk:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSettings();
+  }, []);
 
   const openEditModal = (type: "header" | "footer") => {
     setEditType(type);
     setTempValue(type === "header" ? headerText : footerText);
   };
 
-  const saveEdit = () => {
-    if (editType === "header") setHeaderText(tempValue);
-    if (editType === "footer") setFooterText(tempValue);
+  // --- UPDATE FUNGSI SAVE EDIT ---
+  const saveEdit = async () => {
+    if (editType === "header") {
+      if (await saveSettings(tempValue, footerText, isDiscountEnabled)) {
+        setHeaderText(tempValue);
+      }
+    }
+    if (editType === "footer") {
+      if (await saveSettings(headerText, tempValue, isDiscountEnabled)) {
+        setFooterText(tempValue);
+      }
+    }
     setEditType(null);
   };
+  
+  // --- UPDATE FUNGSI TOGGLE DISKON ---
+  const handleToggleDiscount = async () => {
+      const newState = !isDiscountEnabled;
+      if (await saveSettings(headerText, footerText, newState)) {
+          setIsDiscountEnabled(newState);
+      }
+  };
+
+  if (loading) {
+      return <div style={{ padding: '20px' }}>Memuat Pengaturan Struk...</div>; 
+  }
 
   return (
     <div className="page-container">
       <h2 className="page-title">Pengaturan Struk</h2>
 
-      {/* PREVIEW BTN */}
       <div className="preview-container">
         <button onClick={() => setShowPreview(true)} className="preview-btn">
           <Eye className="icon" />
@@ -55,7 +121,6 @@ export default function PengaturanStrukKonten() {
         </button>
       </div>
 
-      {/* LIST */}
       <div className="content-box">
         <SettingItem label="Header Struk" onEdit={() => openEditModal("header")} />
         <SettingItem label="Footer Struk" onEdit={() => openEditModal("footer")} />
@@ -64,15 +129,15 @@ export default function PengaturanStrukKonten() {
           <span className="setting-label">Diskon</span>
 
           <button
-            onClick={() => setIsDiscountEnabled(!isDiscountEnabled)}
+            onClick={handleToggleDiscount} 
             className={`toggle ${isDiscountEnabled ? "on" : "off"}`}
+            disabled={isSaving} 
           >
             <span className="toggle-ball"></span>
           </button>
         </div>
       </div>
 
-      {/* MODAL EDIT */}
       {editType && (
         <div className="overlay">
           <div className="modal">
@@ -89,14 +154,13 @@ export default function PengaturanStrukKonten() {
               style={{ width: "100%", marginTop: 12 }}
             ></textarea>
 
-            <button className="preview-btn" style={{ marginTop: 16 }} onClick={saveEdit}>
-              Simpan
+            <button className="save-btn" style={{ marginTop: 16 }} onClick={saveEdit} disabled={isSaving}>
+              {isSaving ? "Menyimpan..." : "Simpan"}
             </button>
           </div>
         </div>
       )}
 
-      {/* PREVIEW STRUK */}
       {showPreview && (
         <ModalPreview
           close={() => setShowPreview(false)}
@@ -109,7 +173,6 @@ export default function PengaturanStrukKonten() {
     </div>
   );
 }
-
 function ModalPreview({
   close,
   header,

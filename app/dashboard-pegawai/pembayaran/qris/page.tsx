@@ -1,17 +1,91 @@
+// app/dashboard-pegawai/pembayaran/qris/page.tsx
 'use client';
-// app/dashboard-pegawai/pembayaran/tunai/page.tsx
 import Image from 'next/image';
 import styles from './qris.module.css';
 import { useRouter } from "next/navigation";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore'; 
+import { db } from "@/lib/firebase"; 
+import ReceiptModal from '../components/ReceiptModal'; 
+
+const RECEIPT_SETTING_DOC_ID = "receipt_OUT001";
+const PAYMENT_SETTING_DOC_ID = "payment_OUT001";
+
+interface ReceiptSettings {
+    headerText: string;
+    footerText: string;
+    outletName: string;
+    isDiscountEnabled: boolean;
+}
+interface TransactionData {
+    items: any[];
+    subtotal: number;
+    diskon: number;
+    pajak: number;
+    total: number;
+    customerName: string;
+    paymentMethod: string;
+    pegawaiInfo: { nama: string };
+    tanggal: string; 
+}
 
 export default function PembayaranQrisPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  const [showReceipt, setShowReceipt] = useState(false); 
+  const [receiptSettings, setReceiptSettings] = useState<ReceiptSettings | null>(null);
+  const [transactionDetails, setTransactionDetails] = useState<TransactionData | null>(null);
+  
+  const [qrisImage, setQrisImage] = useState<string | null>(null);
+  const [qrisLoading, setQrisLoading] = useState(true);
+
+  const handleCloseReceipt = () => {
+      setShowReceipt(false);
+      router.push("/dashboard-pegawai/transaksi");
+  }
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+        try {
+            const receiptDocRef = doc(db, "settings", RECEIPT_SETTING_DOC_ID);
+            const receiptSnap = await getDoc(receiptDocRef);
+            
+            if (receiptSnap.exists()) {
+                const data = receiptSnap.data();
+                setReceiptSettings({
+                    headerText: data.headerText || 'Terima kasih telah berbelanja.',
+                    footerText: data.footerText || 'Kunjungi kami lagi!',
+                    outletName: data.outletName || 'Transakti Store',
+                    isDiscountEnabled: data.isDiscountEnabled ?? true,
+                });
+            } else {
+                setReceiptSettings({ 
+                    headerText: 'Terima kasih telah berbelanja.',
+                    footerText: 'Kunjungi kami lagi!',
+                    outletName: 'Transakti Store',
+                    isDiscountEnabled: true,
+                });
+            }
+
+            const paymentDocRef = doc(db, "settings", PAYMENT_SETTING_DOC_ID);
+            const paymentSnap = await getDoc(paymentDocRef);
+            
+            if (paymentSnap.exists()) {
+                const data = paymentSnap.data();
+                setQrisImage(data.qrisImage || null); 
+            }
+        } catch (error) {
+            console.error("Gagal memuat pengaturan:", error);
+        } finally {
+            setQrisLoading(false);
+        }
+    };
+    fetchSettings();
+  }, []);
+
   const handleSelesai = async () => {
     setLoading(true);
-
 
     const savedData = localStorage.getItem("temp_transaction");
     if (!savedData) {
@@ -19,10 +93,9 @@ export default function PembayaranQrisPage() {
       router.push("/dashboard-pegawai/transaksi");
       return;
     }
-    const transactionData = JSON.parse(savedData);
+    const transactionData = JSON.parse(savedData) as TransactionData;
 
     try {
-
       const res = await fetch("/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,13 +105,15 @@ export default function PembayaranQrisPage() {
       const result = await res.json();
       if (!res.ok) throw new Error(result.error);
 
-
       alert("Pembayaran QRIS Berhasil.");
+      setTransactionDetails(transactionData); 
+      setShowReceipt(true); 
+
       localStorage.removeItem("temp_transaction");
-      router.push("/dashboard-pegawai/transaksi");
 
     } catch (error: any) {
       alert("Gagal: " + error.message);
+      router.push("/dashboard-pegawai/transaksi");
     } finally {
       setLoading(false);
     }
@@ -50,18 +125,39 @@ export default function PembayaranQrisPage() {
       <p className={styles.descText}>Silakan scan QRIS di bawah ini</p>
 
       <div className={styles.imageWrapper}>
-        <Image src="/images/pembayaran.png" alt="QRIS Code" width={300} height={300} className={styles.image} />
+        {qrisLoading ? (
+            <p>Memuat QRIS Image...</p>
+        ) : qrisImage ? (
+            <Image 
+                src={qrisImage} 
+                alt="QRIS Code" 
+                width={300} 
+                height={300} 
+                className={styles.image} 
+                unoptimized
+            />
+        ) : (
+            <p style={{color: 'red'}}>⚠️ QRIS belum diunggah oleh owner.</p>
+        )}
       </div>
 
       <div className={styles.centerButton}>
         <button
           className={styles.goTransaksiBtn}
           onClick={handleSelesai}
-          disabled={loading}
+          disabled={loading || !qrisImage}
         >
           {loading ? "Cek Status..." : "Selesai"}
         </button>
       </div>
+      
+      {showReceipt && transactionDetails && receiptSettings && (
+          <ReceiptModal
+              transaction={transactionDetails}
+              settings={receiptSettings}
+              onClose={handleCloseReceipt}
+          />
+      )}
     </div>
   );
 }

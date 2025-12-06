@@ -43,33 +43,27 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
 
-  // 1. Inisialisasi Recaptcha (Invisible)
   useEffect(() => {
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container-reg', {
         'size': 'invisible',
         'callback': () => {
-          // reCAPTCHA solved
         }
       });
     }
   }, []);
 
-  // Handler Input Change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 2. Fungsi Kirim OTP (Langkah 1)
   const handleRegister = async () => {
     setError("");
-    // Validasi Input
     if (!formData.phone || !formData.password || !formData.storeName || !formData.businessType) {
       return setError("Mohon lengkapi semua data!");
     }
 
     setLoading(true);
-    // Format nomor HP (08xx -> +628xx)
     const formattedPhone = formData.phone.replace(/^0/, '+62');
 
     try {
@@ -77,12 +71,11 @@ export default function RegisterPage() {
       const result = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
 
       setConfirmationResult(result);
-      setStep('OTP'); // Pindah ke tampilan input OTP
+      setStep('OTP');
       alert("Kode OTP terkirim! (Gunakan 123456 untuk tes)");
     } catch (err: any) {
       console.error(err);
       setError("Gagal mengirim OTP. Periksa koneksi atau nomor HP.");
-      // Reset recaptcha jika error agar bisa coba lagi
       if (window.recaptchaVerifier) {
         window.recaptchaVerifier.clear();
         window.recaptchaVerifier = null;
@@ -92,7 +85,6 @@ export default function RegisterPage() {
     }
   };
 
-  // 3. Fungsi Verifikasi OTP & Simpan Data (Langkah 2)
   const handleVerifyOtp = async () => {
     if (!otp) return setError("Masukkan kode OTP");
 
@@ -102,11 +94,8 @@ export default function RegisterPage() {
     try {
       if (!confirmationResult) throw new Error("Sesi kadaluarsa, silakan ulangi.");
 
-      // A. Verifikasi OTP di Client (Firebase Auth)
       const result = await confirmationResult.confirm(otp);
       const user = result.user;
-
-      // B. Panggil API Backend kita untuk simpan data ke Firestore
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -217,7 +206,6 @@ export default function RegisterPage() {
               </button>
             </>
           ) : (
-            /* TAMPILAN INPUT OTP */
             <>
               <div className="form-group">
                 <label style={{ textAlign: 'center', display: 'block' }}>Masukkan Kode OTP</label>
