@@ -67,15 +67,12 @@ export default function Pembayaran() {
       setPreviewRekening(rek);
   }
   
-  // ======================================
-  // LOGIKA UTAMA RENDER
-  // ======================================
+ // LOGIKA UTAMA RENDER
 
   return (
     <div className="pembayaran-container">
       <h1 className="title">Pembayaran</h1>
 
-      {/* === Tunai === */}
       <div className={`card ${isCash ? "active" : ""}`}>
         <span>Pembayaran Tunai</span>
         <label className="switch">
@@ -84,7 +81,6 @@ export default function Pembayaran() {
         </label>
       </div>
 
-      {/* === Transfer === */}
       <div className={`card ${isTransfer ? "active" : ""}`}>
         <span>Pembayaran Transfer</span>
         <label className="switch">
@@ -93,7 +89,6 @@ export default function Pembayaran() {
         </label>
       </div>
 
-      {/* ====== AREA KONFIGURASI TRANSFER ====== */}
       {isTransfer && (
         <div className="transfer-config-area">
           {rekeningList.map((rek, index) => (
@@ -130,8 +125,6 @@ export default function Pembayaran() {
         </div>
       )}
 
-
-      {/* ====== QRIS ====== */}
       <div className={`card ${isQris ? "active" : ""}`}>
         <span>Pembayaran QRIS</span>
         <label className="switch">
@@ -161,7 +154,6 @@ export default function Pembayaran() {
         </div>
       )}
 
-      {/* ==== POPUP PREVIEW QRIS ==== */}
       {showQrisPreview && qrisImage && (
         <div className="modal-overlay" onClick={() => setShowQrisPreview(false)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
@@ -178,7 +170,6 @@ export default function Pembayaran() {
         </div>
       )}
 
-      {/* ==== POPUP TAMBAH REKENING (Modal Input) ==== */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
@@ -223,7 +214,6 @@ export default function Pembayaran() {
         </div>
       )}
 
-      {/* ==== POPUP PREVIEW/DETAIL REKENING (Modal Output) ==== */}
       {previewRekening !== null && (
         <div className="modal-overlay" onClick={() => setPreviewRekening(null)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>

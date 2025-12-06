@@ -1,6 +1,3 @@
-/* =========================================
-   PAGE CONTAINER
-========================================= */
 .page-container {
   min-height: 100vh;
   /* padding: 2rem 3rem; */
@@ -19,9 +16,6 @@
   unicode-bidi: isolate;
 }
 
-/* =========================================
-   PREVIEW BUTTON
-========================================= */
 .preview-container {
   max-width: 720px;
   margin-bottom: 32px;
@@ -54,9 +48,6 @@
   height: 20px;
 }
 
-/* =========================================
-   LIST
-========================================= */
 .content-box {
   max-width: 720px;
   background: white;
@@ -89,9 +80,6 @@
   background: #f3f4f6;
 }
 
-/* =========================================
-   TOGGLE
-========================================= */
 .toggle {
   width: 48px;
   height: 26px;
@@ -128,9 +116,6 @@
   left: 4px;
 }
 
-/* =========================================
-   MODAL OVERLAY
-========================================= */
 .overlay {
   position: fixed;
   inset: 0;
@@ -142,9 +127,6 @@
   z-index: 50;
 }
 
-/* =========================================
-   MODAL BOX
-========================================= */
 .modal {
   background: white;
   border-radius: 16px;
@@ -204,9 +186,6 @@
   background: #1e4fcf;
 }
 
-/* =========================================
-   RECEIPT PREVIEW
-========================================= */
 .receipt-box {
   text-align: center;
   font-size: 14px;

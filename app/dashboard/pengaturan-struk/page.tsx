@@ -19,16 +19,13 @@ const SettingItem: React.FC<SettingItemProps> = ({ label, onEdit }) => (
 );
 
 export default function PengaturanStrukKonten() {
-  // STATE HEADER, FOOTER, NAMA TOKO
   const [headerText, setHeaderText] = useState("Header Struk");
   const [footerText, setFooterText] = useState("Terima Kasih");
   const [outletName, setOutletName] = useState("Cantik Madura");
 
-  // MODAL EDIT
   const [editType, setEditType] = useState<"header" | "footer" | null>(null);
   const [tempValue, setTempValue] = useState("");
 
-  // PREVIEW
   const [showPreview, setShowPreview] = useState(false);
   const [isDiscountEnabled, setIsDiscountEnabled] = useState(true);
 
@@ -47,7 +44,6 @@ export default function PengaturanStrukKonten() {
     <div className="page-container">
       <h2 className="page-title">Pengaturan Struk</h2>
 
-      {/* PREVIEW BTN */}
       <div className="preview-container">
         <button onClick={() => setShowPreview(true)} className="preview-btn">
           <Eye className="icon" />
@@ -55,7 +51,6 @@ export default function PengaturanStrukKonten() {
         </button>
       </div>
 
-      {/* LIST */}
       <div className="content-box">
         <SettingItem label="Header Struk" onEdit={() => openEditModal("header")} />
         <SettingItem label="Footer Struk" onEdit={() => openEditModal("footer")} />
@@ -72,7 +67,6 @@ export default function PengaturanStrukKonten() {
         </div>
       </div>
 
-      {/* MODAL EDIT */}
       {editType && (
         <div className="overlay">
           <div className="modal">
@@ -96,7 +90,6 @@ export default function PengaturanStrukKonten() {
         </div>
       )}
 
-      {/* PREVIEW STRUK */}
       {showPreview && (
         <ModalPreview
           close={() => setShowPreview(false)}

@@ -1,6 +1,5 @@
-/* =======================
-    TITLE & TABLE WRAPPER
-========================== */
+/* TITLE & TABLE WRAPPER */
+
 .title {
     display: block;
     font-size: 2em;
@@ -62,9 +61,7 @@
   color: #2ea56f;
 }
 
-/* =======================
-         ICONS
-========================== */
+/* ICONS */
 .sendIcon,
 .editIcon,
 .deleteIcon {
@@ -83,9 +80,7 @@
 .deleteIcon { color: #b13535; }
 .deleteIcon:hover { color: #802626; }
 
-/* =======================
-         RIGHT ACTIONS
-========================== */
+/* RIGHT ACTIONS */
 .actions {
   display: flex;
   flex-direction: column;
@@ -105,9 +100,7 @@
   cursor: pointer;
 }
 
-/* =======================
-          OVERLAY
-========================== */
+/* OVERLAY */
 .overlay {
   position: fixed;
   inset: 0;
@@ -119,9 +112,7 @@
   z-index: 999;
 }
 
-/* =======================
-     POPUP BASE STYLE
-========================== */
+/* POPUP BASE STYLE */
 .popup,
 .detailPopup,
 .editPopup,
@@ -140,9 +131,7 @@
   width: 330px;
 }
 
-/* =======================
-          HEADERS
-========================== */
+/* HEADERS */
 .popupHeader,
 .detailHeader,
 .editHeader,
@@ -160,9 +149,7 @@
   cursor: pointer;
 }
 
-/* =======================
-       WA / SMS BUTTONS
-========================== */
+/* WA / SMS BUTTONS */
 .popupBody {
   display: flex;
   justify-content: center;
@@ -194,9 +181,7 @@
   background: #ddd;
 }
 
-/* =======================
-       DETAIL POPUP
-========================== */
+/* DETAIL POPUP */
 .detailBody p {
   margin: 6px 0;
   font-size: 15px;
@@ -212,9 +197,7 @@
   border-radius: 12px;
 }
 
-/* =======================
-       EDIT POPUP FORM
-========================== */
+/* EDIT POPUP FORM */
 .editBody label {
   font-size: 14px;
   font-weight: 600;
@@ -247,11 +230,7 @@
   background: #1a5257;
 }
 
-/* =======================
-  DELETE POPUP (FINAL)
-========================== */
-
-/* Overlay khusus delete kecil */
+/* DELETE POPUP (FINAL) */
 .smallOverlay {
   position: fixed;
   inset: 0;
@@ -263,7 +242,6 @@
   z-index: 999;
 }
 
-/* Box popup kecil */
 .smallDeletePopup {
   width: 320px;
   background: white;
@@ -275,7 +253,6 @@
   animation: fadeIn 0.25s ease-out;
 }
 
-/* Tombol X */
 .smallCloseBtn {
   position: absolute;
   top: 12px;
@@ -286,7 +263,6 @@
   cursor: pointer;
 }
 
-/* Teks pertanyaan */
 .smallDeleteText {
   font-size: 15px;
   font-weight: 500;
@@ -295,7 +271,6 @@
   line-height: 1.4;
 }
 
-/* Tombol Iya */
 .smallYesBtn {
   width: 100px;
   padding: 12px 0;
@@ -313,11 +288,7 @@
   background: #6a1717;
 }
 
-/* =======================
-   POPUP (ADD & EDIT)
-========================== */
-
-/* Overlay besar tetap pakai overlay utama */
+/* POPUP (ADD & EDIT) */
 .bigOverlay {
   position: fixed;
   inset: 0;
@@ -329,7 +300,6 @@
   z-index: 999;
 }
 
-/* Popup besar ukuran 550px */
 .bigEditPopup {
   width: 550px;
   background: white;
@@ -340,7 +310,6 @@
   position: relative;
 }
 
-/* Tombol close (X) */
 .bigCloseBtn {
   position: absolute;
   right: 18px;
@@ -351,7 +320,6 @@
   cursor: pointer;
 }
 
-/* Judul popup besar */
 .bigEditTitle {
   font-size: 1.6rem;
   font-weight: bold;
@@ -377,7 +345,6 @@
   border: 3px solid #dcdcdc;
 }
 
-/* Tombol upload foto */
 .bigUploadBtn {
   position: absolute;
   bottom: 2px;
@@ -489,9 +456,7 @@
   box-shadow: 0 0 0 2px rgba(31, 77, 120, 0.2);
 }
 
-/* =======================
-         ANIMATION
-========================== */
+/* ANIMATION */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }

@@ -13,7 +13,6 @@ export default function ModalDetailTransaksi({
   return (
     <div className={modal.overlay}>
       <div className={modal.modalLarge} style={{ position: "relative" }}>
-        {/* Close button */}
         <button
           onClick={onClose}
           style={{
@@ -30,12 +29,10 @@ export default function ModalDetailTransaksi({
           ✕
         </button>
 
-        {/* Title */}
         <h3 className={modal.modalTitle} style={{ textAlign: "center", marginBottom: 20 }}>
           DETAIL TRANSAKSI
         </h3>
 
-        {/* Basic info */}
         <div style={{ display: "flex", gap: 20, marginTop: 12, fontSize: "14px", color: "#333" }}>
           <div style={{ flex: 1 }}>
             <div style={{ marginBottom: 4 }}>
@@ -52,7 +49,6 @@ export default function ModalDetailTransaksi({
           </div>
         </div>
 
-        {/* Table scrollable */}
         <div style={{
           maxHeight: "50vh",
           overflowY: "auto",
@@ -100,7 +96,6 @@ export default function ModalDetailTransaksi({
           </table>
         </div>
 
-        {/* Summary */}
         <div style={{ marginTop: 20, display: "flex", justifyContent: "flex-end" }}>
           <div style={{ width: 280, fontSize: "14px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>

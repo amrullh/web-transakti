@@ -27,14 +27,11 @@ export default function KelolaOutlet() {
   const [showDelete, setShowDelete] = useState(false);
 
   const [selectedOutlet, setSelectedOutlet] = useState<any>(null);
-
-  // FORM STATES
   const [formNama, setFormNama] = useState("");
   const [formAlamat, setFormAlamat] = useState("");
   const [formJenis, setFormJenis] = useState("");
   const [formKategori, setFormKategori] = useState("");
 
-  // OPEN ADD
   const openAdd = () => {
     setSelectedOutlet(null);
     setFormNama("");
@@ -45,7 +42,6 @@ export default function KelolaOutlet() {
     setShowAdd(true);
   };
 
-  // OPEN EDIT
   const openEdit = (o: any) => {
     setSelectedOutlet(o);
 
@@ -57,13 +53,11 @@ export default function KelolaOutlet() {
     setShowEdit(true);
   };
 
-  // OPEN DELETE
   const openDelete = (o: any) => {
     setSelectedOutlet(o);
     setShowDelete(true);
   };
 
-  // ADD
   const handleAdd = () => {
     const newOutlet = {
       id: "OUT" + String(outlets.length + 1).padStart(3, "0"),
@@ -77,7 +71,6 @@ export default function KelolaOutlet() {
     setShowAdd(false);
   };
 
-  // EDIT
   const handleEdit = () => {
     const updated = outlets.map((o) =>
       o.id === selectedOutlet.id
@@ -94,7 +87,6 @@ export default function KelolaOutlet() {
     setShowEdit(false);
   };
 
-  // DELETE
   const handleDelete = () => {
     setOutlets(outlets.filter((o) => o.id !== selectedOutlet.id));
     setShowDelete(false);

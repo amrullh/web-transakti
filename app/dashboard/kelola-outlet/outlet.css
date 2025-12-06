@@ -87,7 +87,7 @@
   width: 40px;
   height: 40px;
   font-size: 24px;
-  background: #205781; /* Dark Blue */
+  background: #205781; 
   color: white;
   border: none;
   border-radius: 50%;
@@ -100,8 +100,6 @@
   transform: scale(1.05);
   background: #1a4666;
 }
-
-/* ===== POPUP OVERLAY (Modal) ===== */
 
 .popup-overlay {
   position: fixed;
@@ -200,8 +198,6 @@
   cursor: pointer;
   color: #666;
 }
-
-/* ===== DELETE CONFIRM (Dibiarkan tidak diubah karena sudah ada) ===== */
 
 .popup-confirm {
   background: white;
