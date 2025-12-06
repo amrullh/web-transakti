@@ -60,3 +60,39 @@
   justify-content: center;
   margin-top: 16px;
 }
+
+/* =========================
+   MODAL STYLE (WAJIB AGAR MUNCUL POPUP)
+   ========================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalLarge {
+  background: white;
+  width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+  animation: popupFade 0.2s ease;
+}
+
+@keyframes popupFade {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1f4f6f;
+  text-align: center;
+}
